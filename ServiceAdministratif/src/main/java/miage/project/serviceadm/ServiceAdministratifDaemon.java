@@ -5,10 +5,26 @@
  */
 package miage.project.serviceadm;
 
+import javax.annotation.Resource;
+import javax.ejb.MessageDrivenContext;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+
 /**
  *
- * @author Quentin
+ * @author yannl
  */
-public class ServiceAdministratifDaemon {
-    
+public class ServiceAdministratifDaemon implements MessageListener {
+
+    @Resource
+    private MessageDrivenContext mdc;
+
+    @Override
+    public void onMessage(Message message) {
+        if (message instanceof ServiceAdministratifMessage) {
+
+        } else {
+
+        }
+    }
 }
