@@ -122,7 +122,7 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public List<Convention> getConvention(Long idEtu) {
+    public List<Convention> getConventions(Long idEtu) {
         return etudiantFacade.find(idEtu).getConvs();
     }
 
@@ -134,6 +134,11 @@ public class GestionBDS implements GestionBDSLocal {
     @Override
     public List<Etudiant> getEtudiants() {
         return etudiantFacade.findAll();
+    }
+
+    @Override
+    public Convention getConvention(Long idConv) {
+        return conventionFacade.find(idConv);
     }
 
 }

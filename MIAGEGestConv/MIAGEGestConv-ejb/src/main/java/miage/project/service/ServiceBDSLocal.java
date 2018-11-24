@@ -3,34 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business;
+package miage.project.service;
 
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
-import miage.project.entities.Convention;
-import miage.project.entities.Etudiant;
-import miage.project.entities.Formation;
 
 /**
  *
  * @author Quentin
  */
 @Local
-public interface GestionBDSLocal {
+public interface ServiceBDSLocal {
     
     void creerEtudiant(String nom, String prenom, String password, int num, Long idForm);
     void creerEntreprise(String nom, int siren);
     void creerFormation(int intitule, String niv, String dep, String code);
-    void creerConvention(int annee, int duree, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu);
     void modifierConvention(Long id, String prof);
     
     void setStatutJuridique(Long id, String value);
     void setStatutAdministratif(Long id, String value);
     void setStatutPedagogique(Long id, String value);
     
-    Etudiant getEtudiant(String pseudo, String pass);
-    List<Convention> getConventions(Long idEtu);
-    Convention getConvention(Long idConv);
-    List<Formation> getFormation();
-    List<Etudiant> getEtudiants();
+    Long getEtudiant(String pseudo, String pass);
+    List<String> getConventions(Long idEtu);
+    Map<String, String> getConvention(Long idConv);
+    
 }

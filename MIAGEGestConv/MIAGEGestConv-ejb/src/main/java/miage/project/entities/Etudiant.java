@@ -6,6 +6,7 @@
 package miage.project.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
@@ -53,6 +54,7 @@ public class Etudiant implements Serializable {
         this.numeroEtu = numeroEtu;
         this.pseudo = this.nom + "." + this.prenom;
         this.form = f;
+        this.convs = new ArrayList<Convention>();
     }
 
     public Formation getForm() {

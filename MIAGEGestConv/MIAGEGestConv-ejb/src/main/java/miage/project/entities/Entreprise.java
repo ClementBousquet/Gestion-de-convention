@@ -6,10 +6,14 @@
 package miage.project.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -26,11 +30,15 @@ public class Entreprise implements Serializable {
     private String nom;
     private int siren;
     
+    @OneToMany(cascade=ALL, mappedBy="idConvention")
+    private List<Convention> convs;
+    
     protected Entreprise(){};
     
     public Entreprise (String nom, int siren) {
         this.nom = nom;
         this.siren = siren;
+        this.convs = new ArrayList<Convention>();
     }
 
     public String getNom() {
