@@ -3,25 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.serviceadm;
+package miage.project.servicejur;
 
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import miage.project.entities.Convention;
+
 /**
  *
  * @author yannl
  */
-public class ServiceAdministratifMessage implements Serializable {
+public class ServiceJuridiqueMessage implements Serializable {
     String valeur;
-    int idEtudiant;
+    Convention convention;
     
-    public ServiceAdministratifMessage(String valeur,int idEtudiant){
+    public ServiceJuridiqueMessage(String valeur,Convention convention){
         this.valeur=valeur;
-        this.idEtudiant=idEtudiant;
+        this.convention=convention;
     }
     public String getText(){
         return this.valeur;
