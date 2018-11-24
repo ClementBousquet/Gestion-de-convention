@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.serviceadm;
+package miage.project.servicejur;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -11,7 +11,6 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -19,13 +18,14 @@ import miage.project.entities.Convention;
 import miage.project.entities.Entreprise;
 import miage.project.entities.Etudiant;
 import miage.project.entities.Formation;
+import miage.project.serviceadm.ServiceAdministratifMessage;
 
 /**
  *
  * @author yannl
  */
-public class PubAdministratif {
-   public static void main(String[] args) throws NamingException, JMSException{
+public class PubJuridique {
+    public static void main(String[] args) throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
         System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
@@ -56,7 +56,7 @@ public class PubAdministratif {
             int count=0;
             for (int i = 0; i < count; ++i) {
                 //Exemple pour le création de la convention il faut récupérer les données !!
-               ServiceAdministratifMessage message=new ServiceAdministratifMessage("id",21609037);
+               ServiceJuridiqueMessage message=new ServiceJuridiqueMessage("id",new Convention(1988,1000,100000,"resume",10,10,new Entreprise("Thales",100),new Etudiant("jean","michel","123", 21406090,new Formation(10, "Master 7","Esthéticienne", "69")),new Formation(10, "Master 7","Esthéticienne", "69")));
                message.setText(message.getText() + (i + 1));
                MapMessage m =(session.createMapMessage());
                m.setObject("id", message);
@@ -65,5 +65,4 @@ public class PubAdministratif {
                //System.out.println("Sent: " + message.getText());
             }   
     }
-      
 }

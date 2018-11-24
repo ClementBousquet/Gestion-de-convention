@@ -3,15 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.serviceadm;
+package miage.project.servicejur;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
+import javax.jms.MessageConsumer;
 import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -19,13 +24,15 @@ import miage.project.entities.Convention;
 import miage.project.entities.Entreprise;
 import miage.project.entities.Etudiant;
 import miage.project.entities.Formation;
+import miage.project.serviceadm.ServiceAdministratifDaemon;
+import miage.project.serviceadm.SubAdministratif;
 
 /**
  *
  * @author yannl
  */
-public class PubAdministratif {
-   public static void main(String[] args) throws NamingException, JMSException{
+public class SubJuridique{
+  public static void main(String[] args) throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
         System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
@@ -47,23 +54,24 @@ public class PubAdministratif {
        
         // récupération de la Destination
         Destination dest=null;
-        dest = (Destination) context.lookup("SujetTest");
+        dest = (Destination) context.lookup("SubjectTest");
  
-        MessageProducer sender = session.createProducer(dest);
+        MessageConsumer consumer = session.createConsumer(dest);
 
-            // start the connection, to enable message sends
+             // register a listener
+           consumer.setMessageListener(new ServiceJuridiqueDaemon());
+
+            // start the connection, to enable message receipt
             connexion.start();
-            int count=0;
-            for (int i = 0; i < count; ++i) {
-                //Exemple pour le création de la convention il faut récupérer les données !!
-               ServiceAdministratifMessage message=new ServiceAdministratifMessage("id",21609037);
-               message.setText(message.getText() + (i + 1));
-               MapMessage m =(session.createMapMessage());
-               m.setObject("id", message);
-               //ObjectMessage om = session.createObjectMessage(message);
-               sender.send(m);
-               //System.out.println("Sent: " + message.getText());
-            }   
-    }
-      
+
+            System.out.println("Waiting for messages...");
+            System.out.println("Press [return] to quit");
+
+            BufferedReader waiter = new BufferedReader(new InputStreamReader(System.in));
+        try {  
+            waiter.readLine();
+        } catch (IOException ex) {
+            Logger.getLogger(SubAdministratif.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 }

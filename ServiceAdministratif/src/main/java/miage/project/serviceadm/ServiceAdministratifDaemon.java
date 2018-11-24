@@ -21,10 +21,10 @@ public class ServiceAdministratifDaemon implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        if (message instanceof ServiceAdministratifMessage) {
+       // if (message instanceof GestionConvMessage) {
 
-        } else {
+        //} else {
 
-        }
+     //   }
     }
 }
