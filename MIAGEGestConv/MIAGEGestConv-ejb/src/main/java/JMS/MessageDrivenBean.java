@@ -46,6 +46,7 @@ public class MessageDrivenBean implements MessageListener{
             try {
                String id = sm.getStringProperty("id");
                switch(sm.getStringProperty("service")) {
+                   //Changer les cases ids !!! par ds ids conventions, on envoit des servicesJuridique/AdministratifMessage !
                    case "adm" :
                         ServiceBDS.setStatutAdministratif(parseLong(id), sm.getStringProperty("statut"));
                         break;

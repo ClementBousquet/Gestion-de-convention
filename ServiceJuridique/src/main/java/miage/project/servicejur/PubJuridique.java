@@ -18,7 +18,6 @@ import miage.project.entities.Convention;
 import miage.project.entities.Entreprise;
 import miage.project.entities.Etudiant;
 import miage.project.entities.Formation;
-import miage.project.serviceadm.ServiceAdministratifMessage;
 
 /**
  *

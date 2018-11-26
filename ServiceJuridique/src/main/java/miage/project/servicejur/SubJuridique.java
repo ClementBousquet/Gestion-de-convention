@@ -14,17 +14,11 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.entities.Convention;
-import miage.project.entities.Entreprise;
-import miage.project.entities.Etudiant;
-import miage.project.entities.Formation;
-import miage.project.serviceadm.ServiceAdministratifDaemon;
+
 import miage.project.serviceadm.SubAdministratif;
 
 /**
