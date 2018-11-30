@@ -12,6 +12,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import javax.naming.NamingException;
 
 /**
  *
@@ -27,12 +28,17 @@ public class ServiceJuridiqueDaemon implements MessageListener {
 
                 if (o instanceof ServiceJuridiqueMessage) {
                     //Traitement
-                    Date dateDebut = ((ServiceJuridiqueMessage)o).getDateDebut();
-                    Date dateFin = ((ServiceJuridiqueMessage)o).getDateFin();
-                    float gratification = ((ServiceJuridiqueMessage)o).getGratification();
-                    
-                    
-                    System.out.println("Validation de la convention");
+
+                   ServiceJuridiqueMessage sjm=(ServiceJuridiqueMessage) o;
+                     
+                   String statut="";
+                   PubJuridique pub=new PubJuridique(new ServiceJuridiqueMessage(sjm,statut));
+                    try {
+                        pub.main();
+                    } catch (NamingException ex) {
+                        Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
