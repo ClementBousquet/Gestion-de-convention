@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business;
+package Business;
 
 import JMS.MessageSenderBean;
 import java.util.Date;
@@ -13,15 +13,15 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
-import entities.Convention;
-import entities.Entreprise;
-import entities.Etudiant;
-import entities.Formation;
+import Entities.Convention;
+import Entities.Entreprise;
+import Entities.Etudiant;
+import Entities.Formation;
 import org.apache.log4j.Logger;
-import repositories.ConventionFacadeLocal;
-import repositories.EntrepriseFacadeLocal;
-import repositories.EtudiantFacadeLocal;
-import repositories.FormationFacadeLocal;
+import Repositories.ConventionFacadeLocal;
+import Repositories.EntrepriseFacadeLocal;
+import Repositories.EtudiantFacadeLocal;
+import Repositories.FormationFacadeLocal;
 
 /**
  *

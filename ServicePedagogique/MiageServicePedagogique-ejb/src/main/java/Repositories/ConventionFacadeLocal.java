@@ -23,6 +23,8 @@ public interface ConventionFacadeLocal {
     void remove(Convention convention);
 
     Convention find(Object id);
+    
+    Convention getConventionById(Long id);
 
     List<Convention> findAll();
 

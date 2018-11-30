@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package repositories;
+package Repositories;
 
 import java.util.Date;
 import javax.ejb.Stateless;
@@ -12,8 +12,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entities.Convention;
-import entities.Etudiant;
+import Entities.Convention;
+import Entities.Etudiant;
 
 /**
  *

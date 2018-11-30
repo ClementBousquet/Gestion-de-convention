@@ -6,9 +6,13 @@
 package Repositories;
 
 import Entities.Convention;
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -27,6 +31,19 @@ public class ConventionFacade extends AbstractFacade<Convention> implements Conv
 
     public ConventionFacade() {
         super(Convention.class);
+    }
+
+    @Override
+    public Convention getConventionById(Long id) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Convention> cq = cb.createQuery(Convention.class);
+        Root<Convention> root = cq.from(Convention.class);
+        cq.where(
+                cb.and(
+                        cb.equal(root.get("idConvRef").as(Long.class), id)
+                )
+        );
+        return getEntityManager().createQuery(cq).getSingleResult();
     }
     
 }

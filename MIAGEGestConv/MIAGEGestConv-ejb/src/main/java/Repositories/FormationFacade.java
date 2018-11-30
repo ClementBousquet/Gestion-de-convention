@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package repositories;
+package Repositories;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import entities.Entreprise;
+import Entities.Formation;
 
 /**
  *
  * @author Quentin
  */
 @Stateless
-public class EntrepriseFacade extends AbstractFacade<Entreprise> implements EntrepriseFacadeLocal {
+public class FormationFacade extends AbstractFacade<Formation> implements FormationFacadeLocal {
 
     @PersistenceContext(unitName = "miage.project_MIAGEGestConv-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
         return em;
     }
 
-    public EntrepriseFacade() {
-        super(Entreprise.class);
+    public FormationFacade() {
+        super(Formation.class);
     }
     
 }

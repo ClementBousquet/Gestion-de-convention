@@ -14,7 +14,7 @@ import javax.ejb.Stateless;
 import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import service.ServiceBDSLocal;
+import Service.ServiceBDSLocal;
 
 /**
  *

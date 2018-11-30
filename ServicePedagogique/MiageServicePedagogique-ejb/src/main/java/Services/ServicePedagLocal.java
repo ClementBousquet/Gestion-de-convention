@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business;
+package Services;
 
-import Entities.Convention;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
 
 /**
@@ -15,12 +15,13 @@ import javax.ejb.Local;
  * @author Quentin
  */
 @Local
-public interface GestionConvLocal {
+public interface ServicePedagLocal {
     
     void createConvention(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule,  String niveau, String profref);
     void setProfRef(Long idConv, String prof);
-    Convention getConventionById(Long idConv);
-    List<Convention> getConventions();
-    Convention getConvention(Long id);
+    void annulerConvention(Long idConv);
+    void validerConvention(Long idConv);
+    List<String> getConventions();
+    Map<String, String> getConvention(Long id);
     
 }

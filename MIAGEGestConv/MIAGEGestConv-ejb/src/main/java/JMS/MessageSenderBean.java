@@ -21,11 +21,11 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import JMS.ServicePedagogiqueMessage;
-import entities.Convention;
-import service.ServiceBDSLocal;
+import Entities.Convention;
+import Service.ServiceBDSLocal;
 import miage.project.serviceadm.ServiceAdministratifMessage;
 import miage.project.servicejur.ServiceJuridiqueMessage;
-import repositories.EtudiantFacade;
+import Repositories.EtudiantFacade;
 
 /**
  *

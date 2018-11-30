@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package Service;
 
-import business.GestionBDS;
-import business.GestionBDSLocal;
+import Business.GestionBDS;
+import Business.GestionBDSLocal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import entities.Convention;
+import Entities.Convention;
 import org.apache.log4j.Logger;
 
 /**
