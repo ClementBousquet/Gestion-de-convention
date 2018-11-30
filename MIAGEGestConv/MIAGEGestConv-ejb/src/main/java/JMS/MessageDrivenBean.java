@@ -13,7 +13,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import miage.project.service.ServiceBDSLocal;
+import service.ServiceBDSLocal;
 import miage.project.serviceadm.ServiceAdministratifMessage;
 
 /**

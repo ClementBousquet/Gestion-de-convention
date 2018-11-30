@@ -8,7 +8,7 @@ package repositories;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import miage.project.entities.Formation;
+import entities.Formation;
 
 /**
  *

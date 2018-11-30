@@ -10,8 +10,8 @@ import java.io.Serializable;
  * @author yannl
  */
 public class ServiceAdministratifMessage implements Serializable {
-    private String idConvention;
-    private int idEtudiant;
+    private Long idConvention;
+    private Long idEtudiant;
     private String code;
     private String intitule;
     private String nom;
@@ -19,7 +19,7 @@ public class ServiceAdministratifMessage implements Serializable {
     private String statut;
     private String niveau;
     
-    public ServiceAdministratifMessage(String idConvention,int idEtudiant,String nom,String prenom,String code,String intitule,String niveau){
+    public ServiceAdministratifMessage(Long idConvention,Long idEtudiant,String nom,String prenom,String code,String intitule,String niveau){
         this.idConvention=idConvention;
         this.idEtudiant=idEtudiant;
         this.statut="En Cours";
@@ -29,20 +29,23 @@ public class ServiceAdministratifMessage implements Serializable {
         this.intitule=intitule;
         this.niveau=niveau;
     }
-    
-    public ServiceAdministratifMessage(ServiceAdministratifMessage sam,String statut){
-        this.idConvention=sam.getIdConvention();
-        this.statut=statut;     
+
+    public Long getIdConvention() {
+        return idConvention;
     }
-    
-    public String getidConvention(){
-        return this.idConvention;
+
+    public void setIdConvention(Long idConvention) {
+        this.idConvention = idConvention;
     }
+
+    public Long getIdEtudiant() {
+        return idEtudiant;
+    }
+
+    public void setIdEtudiant(Long idEtudiant) {
+        this.idEtudiant = idEtudiant;
+    } 
     
-   public void setValeur(String idConvention){
-       this.idConvention=idConvention;
-   }
-   
    public void setStatut(String statut){
        this.statut=statut;
    }
@@ -50,21 +53,6 @@ public class ServiceAdministratifMessage implements Serializable {
    public String getStatut(){
        return this.statut;
    }
-    public String getIdConvention() {
-        return idConvention;
-    }
-
-    public void setIdConvention(String idConvention) {
-        this.idConvention = idConvention;
-    }
-
-    public int getIdEtudiant() {
-        return idEtudiant;
-    }
-
-    public void setIdEtudiant(int idEtudiant) {
-        this.idEtudiant = idEtudiant;
-    }
 
     public String getNom() {
         return nom;

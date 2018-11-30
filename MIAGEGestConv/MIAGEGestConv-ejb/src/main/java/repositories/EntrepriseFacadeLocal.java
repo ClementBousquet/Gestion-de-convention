@@ -7,7 +7,7 @@ package repositories;
 
 import java.util.List;
 import javax.ejb.Local;
-import miage.project.entities.Entreprise;
+import entities.Entreprise;
 
 /**
  *

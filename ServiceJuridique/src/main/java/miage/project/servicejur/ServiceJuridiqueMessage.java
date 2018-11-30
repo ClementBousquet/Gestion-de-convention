@@ -13,22 +13,25 @@ import java.util.Date;
  * @author yannl
  */
 public class ServiceJuridiqueMessage implements Serializable {
-    private int idConvention;
-
-    public int getIdConvention() {
-        return idConvention;
-    }
-
-    public void setIdConvention(int idConvention) {
-        this.idConvention = idConvention;
-    }
+    
+    
+    private Long idConvention;
     private Date dateDebut;
     private Date dateFin;
     private float gratification;
     private String nomEntreprise;
     private int siren;
     private String nomEtudiant;
+    private String prenomEtudiant;
     private String statut;
+    
+    public Long getIdConvention() {
+        return idConvention;
+    }
+
+    public void setIdConvention(Long idConvention) {
+        this.idConvention = idConvention;
+    }
 
     public String getNomEtudiant() {
         return nomEtudiant;
@@ -47,7 +50,7 @@ public class ServiceJuridiqueMessage implements Serializable {
     }
     private int contratAssurance;
     
-    public ServiceJuridiqueMessage(int idConvention,Date dateDebut, Date dateFin, float gratification, String nomEntreprise, int siren,int contratAssurance,String nomEtudiant) {
+    public ServiceJuridiqueMessage(Long idConvention,Date dateDebut, Date dateFin, float gratification, String nomEntreprise, int siren,int contratAssurance,String nomEtudiant, String prenomEtudiant) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.gratification = gratification;
@@ -55,6 +58,7 @@ public class ServiceJuridiqueMessage implements Serializable {
         this.siren = siren;
         this.contratAssurance=contratAssurance;
         this.nomEtudiant=nomEtudiant;
+        this.prenomEtudiant= prenomEtudiant;
         this.idConvention=idConvention;
         this.statut="En Cours";
     }
@@ -64,6 +68,24 @@ public class ServiceJuridiqueMessage implements Serializable {
         this.statut=statut;
     }
 
+    public String getPrenomEtudiant() {
+        return prenomEtudiant;
+    }
+
+    public void setPrenomEtudiant(String prenomEtudiant) {
+        this.prenomEtudiant = prenomEtudiant;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    
+    
     public Date getDateDebut() {
         return dateDebut;
     }
