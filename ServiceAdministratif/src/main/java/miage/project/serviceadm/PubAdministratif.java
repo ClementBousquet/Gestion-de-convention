@@ -20,7 +20,13 @@ import javax.naming.NamingException;
  * @author yannl
  */
 public class PubAdministratif {
-   public static void main(String[] args) throws NamingException, JMSException{
+  private ServiceAdministratifMessage sam;
+    
+    public PubAdministratif(ServiceAdministratifMessage sam){
+        this.sam=sam;
+    }
+    
+    public void main() throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
         System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
@@ -49,16 +55,12 @@ public class PubAdministratif {
             // start the connection, to enable message sends
             connexion.start();
             int count=0;
-            for (int i = 0; i < count; ++i) {
-                //Exemple pour le création de la convention il faut récupérer les données !!
-              // ServiceAdministratifMessage message=new ServiceAdministratifMessage("id",21609037);
-              // message.setText(message.getText() + (i + 1));
-              // MapMessage m =(session.createMapMessage());
-             //  m.setObject("id", message);
-               //ObjectMessage om = session.createObjectMessage(message);
-              // sender.send(m);
-               //System.out.println("Sent: " + message.getText());
-            }   
+       
+               
+            ObjectMessage obj=(ObjectMessage) this.sam;
+            
+            sender.send(obj);
+            System.out.println("Sent: "+sam.getIdConvention());
+              
     }
-      
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.JMS;
+package JMS;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -11,6 +11,7 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -20,7 +21,13 @@ import javax.naming.NamingException;
  * @author yannl
  */
 public class PubPedagogique{
-    public static void main(String[] args) throws NamingException, JMSException{
+    private ServicePedagogiqueMessage spm;
+    
+    public PubPedagogique(ServicePedagogiqueMessage spm){
+        this.spm=spm;
+    }
+    
+    public void main() throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
         System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
@@ -49,15 +56,12 @@ public class PubPedagogique{
             // start the connection, to enable message sends
             connexion.start();
             int count=0;
-            for (int i = 0; i < count; ++i) {
-                //Exemple pour la création de la convention il faut récupérer les données !!
-               //ServicePedagogiqueMessage message=new ServicePedagogiqueMessage("id","idconvention");
-               //message.setText(message.getText() + (i + 1));
-               //MapMessage m =(session.createMapMessage());
-               //m.setObject("id", message);
-               //ObjectMessage om = session.createObjectMessage(message);
-               //sender.send(m);
-               //System.out.println("Sent: " + message.getText());
-            }   
+       
+               
+            ObjectMessage obj=(ObjectMessage) this.spm;
+            
+            sender.send(obj);
+            System.out.println("Sent: "+spm.getIdConvention());
+              
     }
 }
