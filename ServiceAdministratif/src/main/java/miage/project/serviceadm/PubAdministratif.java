@@ -51,12 +51,12 @@ public class PubAdministratif {
             int count=0;
             for (int i = 0; i < count; ++i) {
                 //Exemple pour le création de la convention il faut récupérer les données !!
-               ServiceAdministratifMessage message=new ServiceAdministratifMessage("id",21609037);
-               message.setText(message.getText() + (i + 1));
-               MapMessage m =(session.createMapMessage());
-               m.setObject("id", message);
+              // ServiceAdministratifMessage message=new ServiceAdministratifMessage("id",21609037);
+              // message.setText(message.getText() + (i + 1));
+              // MapMessage m =(session.createMapMessage());
+             //  m.setObject("id", message);
                //ObjectMessage om = session.createObjectMessage(message);
-               sender.send(m);
+              // sender.send(m);
                //System.out.println("Sent: " + message.getText());
             }   
     }

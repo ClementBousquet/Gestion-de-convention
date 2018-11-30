@@ -1,2 +1,9 @@
 /ServiceAdministratif/target/
 /MIAGEGestConv/MIAGEGestConv-ejb/target/
+/MIAGEGestConv/MIAGEGestConv-ear/target/
+/MIAGEGestConv/MIAGEGestConv-web/target/
+/ServiceJuridique/target/
+/.gitignore
+/ServicePedagogique/MiageServicePedagogique-ejb/target/
+/ServicePedagogique/MiageServicePedagogique-web/target/
+/ServicePedagogique/MiageServicePedagogique-ear/target/

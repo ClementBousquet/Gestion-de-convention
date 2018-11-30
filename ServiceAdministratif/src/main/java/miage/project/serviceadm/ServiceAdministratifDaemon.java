@@ -13,6 +13,7 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
 
 /**
  *
@@ -25,9 +26,9 @@ public class ServiceAdministratifDaemon implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-       if (message instanceof MapMessage) {
+       if (message instanceof ObjectMessage) {
            try {
-               Object o=((MapMessage) message).getObject("id");
+               Object o=((ObjectMessage) message).getObject();
                if(o instanceof ServiceAdministratifMessage){
               //Traitement!
               }

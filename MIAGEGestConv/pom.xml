@@ -19,11 +19,6 @@
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>ServicePedagogique</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
       <artifactId>ServiceAdministratif</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -32,5 +27,15 @@
       <artifactId>ServiceJuridique</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>MiageServicePedagogique-ejb</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+      </dependency>
   </dependencies>
 </project>
