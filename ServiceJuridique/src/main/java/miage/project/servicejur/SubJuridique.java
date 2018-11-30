@@ -18,9 +18,6 @@ import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import miage.project.serviceadm.SubAdministratif;
-
 /**
  *
  * @author yannl
@@ -65,7 +62,7 @@ public class SubJuridique{
         try {  
             waiter.readLine();
         } catch (IOException ex) {
-            Logger.getLogger(SubAdministratif.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(SubAdministratif.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
 }

@@ -69,9 +69,9 @@ public class Convention implements Serializable {
         this.dureeEssai = dureeEssai;
         this.contratAssurance = contrat;
         
-        this.StatutPedagogique = "EnCours";
-        this.StatutAdministratif = "EnCours";
-        this.StatutJuridique = "EnCours";
+        this.StatutPedagogique = "En Cours";
+        this.StatutAdministratif = "En Cours";
+        this.StatutJuridique = "En Cours";
         
         this.etu = etu;
         this.form = form;
