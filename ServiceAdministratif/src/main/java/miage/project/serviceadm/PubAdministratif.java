@@ -15,11 +15,6 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.entities.Convention;
-import miage.project.entities.Entreprise;
-import miage.project.entities.Etudiant;
-import miage.project.entities.Formation;
-
 /**
  *
  * @author yannl

@@ -6,7 +6,6 @@
 package miage.project.servicejur;
 
 import java.io.Serializable;
-import miage.project.entities.Convention;
 
 /**
  *
@@ -14,11 +13,11 @@ import miage.project.entities.Convention;
  */
 public class ServiceJuridiqueMessage implements Serializable {
     String valeur;
-    Convention convention;
+    //Convention convention;
     
-    public ServiceJuridiqueMessage(String valeur,Convention convention){
+    public ServiceJuridiqueMessage(String valeur/*,Convention convention*/){
         this.valeur=valeur;
-        this.convention=convention;
+        //this.convention=convention;
     }
     public String getText(){
         return this.valeur;

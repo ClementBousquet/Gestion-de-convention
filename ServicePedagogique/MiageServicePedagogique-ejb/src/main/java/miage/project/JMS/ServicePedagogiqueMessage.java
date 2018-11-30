@@ -6,7 +6,6 @@
 package miage.project.JMS;
 
 import java.io.Serializable;
-import miage.project.entities.Convention;
 
 /**
  *
@@ -14,12 +13,12 @@ import miage.project.entities.Convention;
  */
 public class ServicePedagogiqueMessage implements Serializable {
     String valeur;
-    Convention convention;
+    //Convention convention;
     //String idEnseignement;
     
-    public ServicePedagogiqueMessage(String valeur,Convention convention){
+    public ServicePedagogiqueMessage(String valeur/*,Convention convention*/){
         this.valeur=valeur;
-        this.convention=convention;
+        //this.convention=convention;
         //this.idEnseignement=idEnseignement;
     }
     public String getText(){

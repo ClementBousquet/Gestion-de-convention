@@ -14,8 +14,6 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.entities.Convention;
-import miage.project.serviceadm.ServiceAdministratifMessage;
 
 /**
  *
@@ -53,12 +51,12 @@ public class PubPedagogique{
             int count=0;
             for (int i = 0; i < count; ++i) {
                 //Exemple pour la création de la convention il faut récupérer les données !!
-               ServicePedagogiqueMessage message=new ServicePedagogiqueMessage("id","idconvention");
-               message.setText(message.getText() + (i + 1));
-               MapMessage m =(session.createMapMessage());
-               m.setObject("id", message);
+               //ServicePedagogiqueMessage message=new ServicePedagogiqueMessage("id","idconvention");
+               //message.setText(message.getText() + (i + 1));
+               //MapMessage m =(session.createMapMessage());
+               //m.setObject("id", message);
                //ObjectMessage om = session.createObjectMessage(message);
-               sender.send(m);
+               //sender.send(m);
                //System.out.println("Sent: " + message.getText());
             }   
     }

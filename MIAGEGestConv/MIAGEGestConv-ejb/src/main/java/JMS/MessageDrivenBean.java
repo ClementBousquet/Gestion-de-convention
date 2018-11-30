@@ -19,6 +19,7 @@ import javax.jms.ObjectMessage;
 import javax.jms.StreamMessage;
 import miage.project.entities.Convention;
 import miage.project.service.ServiceBDSLocal;
+import miage.project.serviceadm.ServiceAdministratifMessage;
 
 /**
  *
@@ -44,19 +45,28 @@ public class MessageDrivenBean implements MessageListener{
             ObjectMessage sm = (ObjectMessage) message;
             
             try {
+                
                String id = sm.getStringProperty("id");
-               switch(sm.getStringProperty("service")) {
-                   //Changer les cases ids !!! par ds ids conventions, on envoit des servicesJuridique/AdministratifMessage !
-                   case "adm" :
-                        ServiceBDS.setStatutAdministratif(parseLong(id), sm.getStringProperty("statut"));
+               
+               
+               switch(sm.getJMSType()) {
+                   
+                   case "ServiceAdministratifMessage" :
+                        ServiceAdministratifMessage sam = (ServiceAdministratifMessage) sm.getObject();
+                        //ServiceBDS.setStatutAdministratif(parseLong(id), sam.getStatut());
                         break;
-                    case "ped" :
+                        
+                    case "ServicePedagogiqueMessage" :
+                        //ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) sm.getObject();
                         ServiceBDS.setStatutPedagogique(parseLong(id), sm.getStringProperty("statut"));
                         ServiceBDS.modifierConvention(parseLong(id), sm.getStringProperty("prof_ref"));
                         break;
-                    case "jur" :
-                        ServiceBDS.setStatutJuridique(parseLong(id), sm.getStringProperty("statut"));
+                        
+                    case "ServiceJuridiqueMessage" :
+                        //Service
+                        //ServiceBDS.setStatutJuridique(parseLong(id), sm.getStringProperty("statut"));
                         break;
+                        
                }
                 
             } catch (JMSException ex) {

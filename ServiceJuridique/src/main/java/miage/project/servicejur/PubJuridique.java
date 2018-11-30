@@ -14,10 +14,6 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.entities.Convention;
-import miage.project.entities.Entreprise;
-import miage.project.entities.Etudiant;
-import miage.project.entities.Formation;
 
 /**
  *
@@ -55,12 +51,12 @@ public class PubJuridique {
             int count=0;
             for (int i = 0; i < count; ++i) {
                 //Exemple pour le création de la convention il faut récupérer les données !!
-               ServiceJuridiqueMessage message=new ServiceJuridiqueMessage("id",new Convention(1988,1000,100000,"resume",10,10,new Entreprise("Thales",100),new Etudiant("jean","michel","123", 21406090,new Formation(10, "Master 7","Esthéticienne", "69")),new Formation(10, "Master 7","Esthéticienne", "69")));
-               message.setText(message.getText() + (i + 1));
-               MapMessage m =(session.createMapMessage());
-               m.setObject("id", message);
+               //ServiceJuridiqueMessage message=new ServiceJuridiqueMessage("id",new Convention(1988,1000,100000,"resume",10,10,new Entreprise("Thales",100),new Etudiant("jean","michel","123", 21406090,new Formation(10, "Master 7","Esthéticienne", "69")),new Formation(10, "Master 7","Esthéticienne", "69")));
+               //message.setText(message.getText() + (i + 1));
+               //MapMessage m =(session.createMapMessage());
+               //m.setObject("id", message);
                //ObjectMessage om = session.createObjectMessage(message);
-               sender.send(m);
+               //sender.send(m);
                //System.out.println("Sent: " + message.getText());
             }   
     }
