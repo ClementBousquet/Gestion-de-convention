@@ -20,7 +20,7 @@ import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.JMS.ServicePedagogiqueMessage;
+import JMS.ServicePedagogiqueMessage;
 import entities.Convention;
 import service.ServiceBDSLocal;
 import miage.project.serviceadm.ServiceAdministratifMessage;

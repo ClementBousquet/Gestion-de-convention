@@ -29,7 +29,11 @@ public class ServiceAdministratifMessage implements Serializable {
         this.intitule=intitule;
         this.niveau=niveau;
     }
-
+    
+    public ServiceAdministratifMessage(ServiceAdministratifMessage sam,String statut){
+        this.idConvention=sam.getIdConvention();
+        this.statut=statut;
+    }
     public Long getIdConvention() {
         return idConvention;
     }
