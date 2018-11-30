@@ -41,6 +41,16 @@ public class Entreprise implements Serializable {
         this.convs = new ArrayList<Convention>();
     }
 
+    public List<Convention> getConvs() {
+        return convs;
+    }
+
+    public void setConvs(List<Convention> convs) {
+        this.convs = convs;
+    }
+
+    
+    
     public String getNom() {
         return nom;
     }
