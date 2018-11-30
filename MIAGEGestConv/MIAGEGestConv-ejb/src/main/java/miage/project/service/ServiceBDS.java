@@ -7,6 +7,7 @@ package miage.project.service;
 
 import business.GestionBDSLocal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,5 +91,10 @@ public class ServiceBDS implements ServiceBDSLocal {
         //TODO
        
         return map;
+    }
+
+    @Override
+    public void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
+        gestionBDS.creerConvention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, nomE, sirenE, idEtu);
     }
 }

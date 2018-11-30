@@ -5,6 +5,7 @@
  */
 package business;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -52,7 +53,7 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public void creerConvention(int annee, int duree, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
+    public void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
         List<Entreprise> entreprises = entrepriseFacade.findAll();
         Entreprise entpComp = new Entreprise(nomE, sirenE);
         
@@ -70,7 +71,7 @@ public class GestionBDS implements GestionBDSLocal {
         else 
            entpComp = entrepriseFacade.find(idEntp);
         
-        Convention  myConv = new Convention(annee, duree, gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,formationFacade.find(etudiantFacade.find(idEtu).getForm()));
+        Convention  myConv = new Convention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,formationFacade.find(etudiantFacade.find(idEtu).getForm()));
         
         conventionFacade.create(myConv);
         

@@ -5,6 +5,7 @@
  */
 package business;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import miage.project.entities.Convention;
@@ -21,7 +22,7 @@ public interface GestionBDSLocal {
     void creerEtudiant(String nom, String prenom, String password, int num, Long idForm);
     void creerEntreprise(String nom, int siren);
     void creerFormation(int intitule, String niv, String dep, String code);
-    void creerConvention(int annee, int duree, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu);
+    void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu);
     void modifierConvention(Long id, String prof);
     
     void setStatutJuridique(Long id, String value);

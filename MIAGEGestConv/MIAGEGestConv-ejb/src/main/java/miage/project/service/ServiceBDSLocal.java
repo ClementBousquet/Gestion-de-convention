@@ -5,6 +5,7 @@
  */
 package miage.project.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Local;
@@ -19,6 +20,8 @@ public interface ServiceBDSLocal {
     void creerEtudiant(String nom, String prenom, String password, int num, Long idForm);
     void creerEntreprise(String nom, int siren);
     void creerFormation(int intitule, String niv, String dep, String code);
+    void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu);
+
     void modifierConvention(Long id, String prof);
     
     void setStatutJuridique(Long id, String value);

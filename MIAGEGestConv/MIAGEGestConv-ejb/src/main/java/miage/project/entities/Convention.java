@@ -6,6 +6,7 @@
 package miage.project.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,9 @@ public class Convention implements Serializable {
     @JoinColumn
     private Entreprise entreprise;
     @Column(nullable = false)
-    private int duree; //Exprimé en mois
+    private Date dateDebut;
+    @Column(nullable = false)
+    private Date dateFin;
     @Column(nullable = false)
     private float gratification;
     @Column(nullable = false)
@@ -60,10 +63,11 @@ public class Convention implements Serializable {
     
     protected Convention(){};
     
-    public Convention(int annee, int duree, int gratification, String resume, int dureeEssai, int contrat, Entreprise entp, Etudiant etu, Formation form) {
+    public Convention(int annee, Date datedebut, Date datefin, int gratification, String resume, int dureeEssai, int contrat, Entreprise entp, Etudiant etu, Formation form) {
         
         this.annéeUniversitaire = annee;
-        this.duree = duree;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.gratification = gratification;
         this.resume = resume;
         this.dureeEssai = dureeEssai;
@@ -77,6 +81,46 @@ public class Convention implements Serializable {
         this.form = form;
         this.entp = entp;
         
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Etudiant getEtu() {
+        return etu;
+    }
+
+    public void setEtu(Etudiant etu) {
+        this.etu = etu;
+    }
+
+    public Entreprise getEntp() {
+        return entp;
+    }
+
+    public void setEntp(Entreprise entp) {
+        this.entp = entp;
+    }
+
+    public Formation getForm() {
+        return form;
+    }
+
+    public void setForm(Formation form) {
+        this.form = form;
     }
 
     public String getStatutJuridique() {
@@ -125,14 +169,6 @@ public class Convention implements Serializable {
 
     public void setEntreprise(Entreprise entreprise) {
         this.entreprise = entreprise;
-    }
-
-    public int getDuree() {
-        return duree;
-    }
-
-    public void setDuree(int duree) {
-        this.duree = duree;
     }
 
     public float getGratification() {
