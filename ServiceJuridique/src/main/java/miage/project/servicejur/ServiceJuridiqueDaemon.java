@@ -5,6 +5,7 @@
  */
 package miage.project.servicejur;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
@@ -27,9 +28,9 @@ public class ServiceJuridiqueDaemon implements MessageListener {
 
                 if (o instanceof ServiceJuridiqueMessage) {
                     //Traitement
+
                    ServiceJuridiqueMessage sjm=(ServiceJuridiqueMessage) o;
-                   
-                   
+                     
                    String statut="";
                    PubJuridique pub=new PubJuridique(new ServiceJuridiqueMessage(sjm,statut));
                     try {
@@ -37,6 +38,7 @@ public class ServiceJuridiqueDaemon implements MessageListener {
                     } catch (NamingException ex) {
                         Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
                     }
+
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
