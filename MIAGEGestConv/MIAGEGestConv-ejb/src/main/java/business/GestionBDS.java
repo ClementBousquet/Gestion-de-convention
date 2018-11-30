@@ -5,14 +5,19 @@
  */
 package business;
 
+import JMS.MessageSenderBean;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 import miage.project.entities.Convention;
 import miage.project.entities.Entreprise;
 import miage.project.entities.Etudiant;
 import miage.project.entities.Formation;
+import org.apache.log4j.Logger;
 import repositories.ConventionFacadeLocal;
 import repositories.EntrepriseFacadeLocal;
 import repositories.EtudiantFacadeLocal;
@@ -25,6 +30,8 @@ import repositories.FormationFacadeLocal;
 @Stateless
 public class GestionBDS implements GestionBDSLocal {
 
+    final static Logger log4j = Logger.getLogger(GestionBDS.class);
+    
     @EJB
     private EtudiantFacadeLocal etudiantFacade;
     
@@ -39,21 +46,25 @@ public class GestionBDS implements GestionBDSLocal {
     
     @Override
     public void creerEtudiant(String nom, String prenom, String password, int num, Long idForm) {
+        log4j.debug("creerEtudiant");
         etudiantFacade.create(new Etudiant(nom, prenom, password, num, formationFacade.find(idForm)));
     }
 
     @Override
     public void creerEntreprise(String nom, int siren) {
+        log4j.debug("creerEntreprise");
         entrepriseFacade.create(new Entreprise(nom, siren));
     }
 
     @Override
     public void creerFormation(int intitule, String niv, String dep, String code) {
+        log4j.debug("creerFormation");
         formationFacade.create(new Formation(intitule, niv, dep, code));
     }
 
     @Override
     public void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
+        log4j.debug("creerConvention");
         List<Entreprise> entreprises = entrepriseFacade.findAll();
         Entreprise entpComp = new Entreprise(nomE, sirenE);
         
@@ -75,14 +86,29 @@ public class GestionBDS implements GestionBDSLocal {
         
         conventionFacade.create(myConv);
         
-        List<Convention> updatedList = etudiantFacade.find(idEtu).getConvs();
-        updatedList.add(myConv);
+        Convention conv = conventionFacade.findByEtuAndYear(etudiantFacade.find(idEtu), datedeb, datefin);
+
+        MessageSenderBean msb = new MessageSenderBean();
+        try {
+            msb.sendJMSMessageToMyTopic(conv);
+        } catch (JMSException ex) {
+            log4j.error("JMSException");
+        } catch (NamingException ex) {
+            log4j.error("NamingException");
+        }
         
-        etudiantFacade.find(idEtu).setConvs(updatedList);
+        Etudiant et = etudiantFacade.find(idEtu);
+        List<Convention> updatedList = et.getConvs();
+        updatedList.add(myConv);
+        et.setConvs(updatedList);
+        
+        etudiantFacade.edit(et);
+
     }
 
     @Override
     public void modifierConvention(Long id, String prof) {
+        log4j.debug("modifierConvention");
         Convention conv = conventionFacade.find(id);
         conv.setNomEnseignant(prof);
         conventionFacade.edit(conv);
@@ -90,6 +116,7 @@ public class GestionBDS implements GestionBDSLocal {
 
     @Override
     public void setStatutJuridique(Long id, String value) {
+        log4j.debug("setStatutJuridique");
         Convention conv = conventionFacade.find(id);
         conv.setStatutJuridique(value);
         conventionFacade.edit(conv);
@@ -97,6 +124,7 @@ public class GestionBDS implements GestionBDSLocal {
 
     @Override
     public void setStatutAdministratif(Long id, String value) {
+        log4j.debug("setStatutAdministratif");
         Convention conv = conventionFacade.find(id);
         conv.setStatutAdministratif(value);
         conventionFacade.edit(conv);
@@ -104,6 +132,7 @@ public class GestionBDS implements GestionBDSLocal {
 
     @Override
     public void setStatutPedagogique(Long id, String value) {
+        log4j.debug("setStatutPedagogique");
         Convention conv = conventionFacade.find(id);
         conv.setStatutPedagogique(value);
         conventionFacade.edit(conv);
@@ -111,6 +140,7 @@ public class GestionBDS implements GestionBDSLocal {
 
     @Override
     public Etudiant getEtudiant(String pseudo, String pass) {
+        log4j.debug("getEtudiant");
         List<Etudiant> etudiants = etudiantFacade.findAll();
         
         for (int i = 0; i < etudiants.size(); i++) {
@@ -124,21 +154,25 @@ public class GestionBDS implements GestionBDSLocal {
 
     @Override
     public List<Convention> getConventions(Long idEtu) {
+        log4j.debug("getConventions");
         return etudiantFacade.find(idEtu).getConvs();
     }
 
     @Override
     public List<Formation> getFormation() {
+        log4j.debug("getFormation");
         return formationFacade.findAll();
     }
 
     @Override
     public List<Etudiant> getEtudiants() {
+        log4j.debug("getEtudiants");
         return etudiantFacade.findAll();
     }
 
     @Override
     public Convention getConvention(Long idConv) {
+        log4j.debug("getConvention");
         return conventionFacade.find(idConv);
     }
 

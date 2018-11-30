@@ -5,6 +5,7 @@
  */
 package repositories;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 import miage.project.entities.Convention;
@@ -23,6 +24,8 @@ public interface ConventionFacadeLocal {
     void remove(Convention convention);
 
     Convention find(Object id);
+    
+    Convention findByEtuAndYear(Object etu, Date datedeb, Date datefin);
 
     List<Convention> findAll();
 

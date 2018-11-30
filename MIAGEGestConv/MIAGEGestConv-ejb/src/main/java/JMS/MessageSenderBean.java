@@ -19,6 +19,7 @@ import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import miage.project.entities.Convention;
 
 /**
  *
@@ -26,7 +27,7 @@ import javax.naming.NamingException;
  */
 public class MessageSenderBean {
 
-    private Message createJMSMessageForjmsMyTopic(Session session, String dest) throws JMSException {
+    private Message createJMSMessageForjmsMyTopic(Session session, Convention conv, String dest) throws JMSException {
         // TODO create and populate message to send
         ObjectMessage tm = session.createObjectMessage(); 
         switch (dest) {
@@ -47,7 +48,7 @@ public class MessageSenderBean {
         return tm;
     }
 
-    private void sendJMSMessageToMyTopic(Object messageData) throws JMSException, NamingException {
+    public void sendJMSMessageToMyTopic(Object messageData) throws JMSException, NamingException {
         Context c = new InitialContext();
         ConnectionFactory cf = (ConnectionFactory) c.lookup("java:comp/env/jms/__defaultConnectionFactory");
         Connection conn = null;
@@ -57,9 +58,11 @@ public class MessageSenderBean {
             s = conn.createSession(false, s.AUTO_ACKNOWLEDGE);
             Destination destination = (Destination) c.lookup("java:comp/env/jms/myTopic");
             MessageProducer mp = s.createProducer(destination);
-            mp.send(createJMSMessageForjmsMyTopic(s, "ServiceJuridique"));
-            mp.send(createJMSMessageForjmsMyTopic(s, "ServicePedagogique"));
-            mp.send(createJMSMessageForjmsMyTopic(s, "ServiceAdministratif"));
+            if (messageData instanceof Convention) {
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceJuridique"));
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServicePedagogique"));
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceAdministratif"));
+            }
         } finally {
             if (s != null) {
                 try {

@@ -56,10 +56,9 @@ public class Convention implements Serializable {
     private int dureeEssai; // Exprimé en jours
     @Column(nullable = false)
     private int contratAssurance;
-    
-    private Etudiant etu;
-    private Entreprise entp;
-    private Formation form;
+    @OneToOne
+    @JoinColumn
+    private Etudiant etudiant;
     
     protected Convention(){};
     
@@ -77,10 +76,18 @@ public class Convention implements Serializable {
         this.StatutAdministratif = "En Cours";
         this.StatutJuridique = "En Cours";
         
-        this.etu = etu;
-        this.form = form;
-        this.entp = entp;
+        this.etudiant = etu;
+        this.formation = form;
+        this.entreprise = entp;
         
+    }
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
     }
 
     public Date getDateDebut() {
@@ -98,31 +105,7 @@ public class Convention implements Serializable {
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
     }
-
-    public Etudiant getEtu() {
-        return etu;
-    }
-
-    public void setEtu(Etudiant etu) {
-        this.etu = etu;
-    }
-
-    public Entreprise getEntp() {
-        return entp;
-    }
-
-    public void setEntp(Entreprise entp) {
-        this.entp = entp;
-    }
-
-    public Formation getForm() {
-        return form;
-    }
-
-    public void setForm(Formation form) {
-        this.form = form;
-    }
-
+    
     public String getStatutJuridique() {
         return StatutJuridique;
     }
