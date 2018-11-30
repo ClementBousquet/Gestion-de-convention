@@ -5,6 +5,7 @@
  */
 package miage.project.servicejur;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.JMSException;
@@ -26,7 +27,12 @@ public class ServiceJuridiqueDaemon implements MessageListener {
 
                 if (o instanceof ServiceJuridiqueMessage) {
                     //Traitement
-                    Convention conv = ((ServiceJuridiqueMessage)o).getConvention();
+                    Date dateDebut = ((ServiceJuridiqueMessage)o).getDateDebut();
+                    Date dateFin = ((ServiceJuridiqueMessage)o).getDateFin();
+                    float gratification = ((ServiceJuridiqueMessage)o).getGratification();
+                    
+                    
+                    System.out.println("Validation de la convention");
                 }
             } catch (JMSException ex) {
                 Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
