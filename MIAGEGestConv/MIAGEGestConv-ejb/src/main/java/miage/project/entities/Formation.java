@@ -25,7 +25,7 @@ public class Formation implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    private int intitule;
+    private String intitule;
     @Column(nullable = false)
     private String niveau; // Master, Licence
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class Formation implements Serializable {
     protected Formation() {
     }
     
-    public Formation (int inti, String niv, String dep, String code) {
+    public Formation (String inti, String niv, String dep, String code) {
         this.intitule = inti;
         this.niveau = niv;
         this.departement = dep;
@@ -51,11 +51,11 @@ public class Formation implements Serializable {
         this.id = id;
     }
 
-    public int getIntitule() {
+    public String getIntitule() {
         return intitule;
     }
 
-    public void setIntitule(int intitule) {
+    public void setIntitule(String intitule) {
         this.intitule = intitule;
     }
 

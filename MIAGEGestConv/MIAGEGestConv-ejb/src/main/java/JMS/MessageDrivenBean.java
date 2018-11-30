@@ -5,10 +5,7 @@
  */
 package JMS;
 
-import static java.lang.Float.parseFloat;
 import static java.lang.Long.parseLong;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -16,8 +13,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
-import javax.jms.StreamMessage;
-import miage.project.entities.Convention;
 import miage.project.service.ServiceBDSLocal;
 import miage.project.serviceadm.ServiceAdministratifMessage;
 
@@ -26,9 +21,11 @@ import miage.project.serviceadm.ServiceAdministratifMessage;
  * @author Quentin
  */
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/Bds"),
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/myQueue"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
+
+
 public class MessageDrivenBean implements MessageListener{
     
     @EJB
