@@ -13,7 +13,7 @@ import java.util.Date;
  * @author yannl
  */
 public class ServicePedagogiqueMessage implements Serializable {
-    private String idConvention;
+    private Long idConvention;
     private Date dateDebut;
     private Date dateFin;
     private String statut;
@@ -22,7 +22,7 @@ public class ServicePedagogiqueMessage implements Serializable {
     private String niveau;
     private String prof_ref;
 
-    public ServicePedagogiqueMessage(String idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule) {
+    public ServicePedagogiqueMessage(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule) {
         this.idConvention = idConvention;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -42,11 +42,11 @@ public class ServicePedagogiqueMessage implements Serializable {
         this.prof_ref = prof_ref;
     }
 
-    public String getIdConvention() {
+    public Long getIdConvention() {
         return idConvention;
     }
 
-    public void setIdConvention(String idConvention) {
+    public void setIdConvention(Long idConvention) {
         this.idConvention = idConvention;
     }
 

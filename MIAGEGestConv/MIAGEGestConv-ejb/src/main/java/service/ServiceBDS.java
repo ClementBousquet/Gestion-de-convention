@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.service;
+package service;
 
 import business.GestionBDS;
 import business.GestionBDSLocal;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import miage.project.entities.Convention;
+import entities.Convention;
 import org.apache.log4j.Logger;
 
 /**

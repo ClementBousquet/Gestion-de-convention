@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.entities;
+package entities;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -40,6 +40,14 @@ public class Formation implements Serializable {
         this.intitule = inti;
         this.niveau = niv;
         this.departement = dep;
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
         this.code = code;
     }
     

@@ -8,9 +8,9 @@ package business;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
-import miage.project.entities.Convention;
-import miage.project.entities.Etudiant;
-import miage.project.entities.Formation;
+import entities.Convention;
+import entities.Etudiant;
+import entities.Formation;
 
 /**
  *

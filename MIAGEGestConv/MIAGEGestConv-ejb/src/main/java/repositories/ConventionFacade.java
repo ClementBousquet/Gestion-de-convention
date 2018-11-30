@@ -12,8 +12,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import miage.project.entities.Convention;
-import miage.project.entities.Etudiant;
+import entities.Convention;
+import entities.Etudiant;
 
 /**
  *

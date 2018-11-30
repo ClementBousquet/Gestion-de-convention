@@ -7,6 +7,7 @@ package JMS;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -19,7 +20,12 @@ import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.entities.Convention;
+import miage.project.JMS.ServicePedagogiqueMessage;
+import entities.Convention;
+import service.ServiceBDSLocal;
+import miage.project.serviceadm.ServiceAdministratifMessage;
+import miage.project.servicejur.ServiceJuridiqueMessage;
+import repositories.EtudiantFacade;
 
 /**
  *
@@ -27,21 +33,36 @@ import miage.project.entities.Convention;
  */
 public class MessageSenderBean {
 
+    
     private Message createJMSMessageForjmsMyTopic(Session session, Convention conv, String dest) throws JMSException {
         // TODO create and populate message to send
         ObjectMessage tm = session.createObjectMessage(); 
         switch (dest) {
             case "ServiceJuridique" :
                 tm.setJMSType("ServiceJuridique");
-                //tm.setObject(new ServiceJuridiqueMessage());
+                tm.setObject(new ServiceJuridiqueMessage(conv.getId(),
+                    conv.getDateDebut(),
+                    conv.getDateFin(),
+                    conv.getGratification(),
+                    conv.getEntreprise().getNom(),
+                    conv.getEntreprise().getSiren(),
+                    conv.getContratAssurance(),
+                    conv.getEtudiant().getNom(),
+                    conv.getEtudiant().getPrenom()));
                 break;
             case "ServiceAdministratif" :
                 tm.setJMSType("ServiceAdministratif");
-                //tm.setObject(new ServiceJuridiqueMessage());
+                tm.setObject(new ServiceAdministratifMessage(conv.getId(), 
+                    conv.getEtudiant().getId(),
+                    conv.getEtudiant().getNom(),
+                    conv.getEtudiant().getPrenom(),
+                    conv.getFormation().getCode(),
+                    conv.getFormation().getIntitule(),
+                    conv.getFormation().getNiveau()));
                 break;
             case "ServicePedagogique" :
                 tm.setJMSType("ServicePedagogique");
-                //tm.setObject(new ServiceJuridiqueMessage());
+                //tm.setObject(new ServicePedagogiqueMessage());
                 break;
         }
         
