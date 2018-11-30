@@ -53,7 +53,7 @@ public class Convention implements Serializable {
     @Column(nullable = false)
     private String nomEnseignant;
     @Column(nullable = false)
-    private int dureeEssai; // Exprimé en jours
+    private int dureeEssai; // Exprimé en semaine
     @Column(nullable = false)
     private int contratAssurance;
     @OneToOne

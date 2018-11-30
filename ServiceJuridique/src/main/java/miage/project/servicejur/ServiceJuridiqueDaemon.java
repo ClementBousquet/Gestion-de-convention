@@ -5,17 +5,13 @@
  */
 package miage.project.servicejur;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.annotation.Resource;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.Session;
-import javax.naming.InitialContext;
+import javax.jms.ObjectMessage;
 import javax.naming.NamingException;
 
 /**
@@ -24,23 +20,32 @@ import javax.naming.NamingException;
  */
 public class ServiceJuridiqueDaemon implements MessageListener {
 
-
     @Override
     public void onMessage(Message message) {
-       if (message instanceof MapMessage) {
-           try {
-               Object o=((MapMessage) message).getObject("id");
-               
-               if(o instanceof ServiceJuridiqueMessage){
-              //Traitement!
-              }
-           } catch (JMSException ex) {
-               Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
-           }
-          
-       } else {
+        if (message instanceof ObjectMessage) {
+            try {
+                Object o = ((ObjectMessage) message).getObject();
 
-      }
+                if (o instanceof ServiceJuridiqueMessage) {
+                    //Traitement
+
+                   ServiceJuridiqueMessage sjm=(ServiceJuridiqueMessage) o;
+                     
+                   String statut="";
+                   PubJuridique pub=new PubJuridique(new ServiceJuridiqueMessage(sjm,statut));
+                    try {
+                        pub.main();
+                    } catch (NamingException ex) {
+                        Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                }
+            } catch (JMSException ex) {
+                Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+
+        }
     }
 }
-

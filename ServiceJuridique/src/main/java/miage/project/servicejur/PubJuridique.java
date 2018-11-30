@@ -9,8 +9,8 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -20,7 +20,13 @@ import javax.naming.NamingException;
  * @author yannl
  */
 public class PubJuridique {
-    public static void main(String[] args) throws NamingException, JMSException{
+    private ServiceJuridiqueMessage sjm;
+    
+    public PubJuridique(ServiceJuridiqueMessage sjm){
+        this.sjm=sjm;
+    }
+    
+    public void main() throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
         System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
@@ -49,15 +55,12 @@ public class PubJuridique {
             // start the connection, to enable message sends
             connexion.start();
             int count=0;
-            for (int i = 0; i < count; ++i) {
-                //Exemple pour le création de la convention il faut récupérer les données !!
-               //ServiceJuridiqueMessage message=new ServiceJuridiqueMessage("id",new Convention(1988,1000,100000,"resume",10,10,new Entreprise("Thales",100),new Etudiant("jean","michel","123", 21406090,new Formation(10, "Master 7","Esthéticienne", "69")),new Formation(10, "Master 7","Esthéticienne", "69")));
-               //message.setText(message.getText() + (i + 1));
-               //MapMessage m =(session.createMapMessage());
-               //m.setObject("id", message);
-               //ObjectMessage om = session.createObjectMessage(message);
-               //sender.send(m);
-               //System.out.println("Sent: " + message.getText());
-            }   
+       
+               
+            ObjectMessage obj=(ObjectMessage) this.sjm;
+            
+            sender.send(obj);
+            System.out.println("Sent: "+sjm.getIdConvention());
+              
     }
 }
