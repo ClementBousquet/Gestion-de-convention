@@ -57,7 +57,7 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public void creerFormation(int intitule, String niv, String dep, String code) {
+    public void creerFormation(String intitule, String niv, String dep, String code) {
         log4j.debug("creerFormation");
         formationFacade.create(new Formation(intitule, niv, dep, code));
     }
