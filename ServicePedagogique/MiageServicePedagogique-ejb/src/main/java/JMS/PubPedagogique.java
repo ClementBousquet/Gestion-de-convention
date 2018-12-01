@@ -9,7 +9,6 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
@@ -55,8 +54,6 @@ public class PubPedagogique{
 
             // start the connection, to enable message sends
             connexion.start();
-            int count=0;
-       
                
             ObjectMessage obj=(ObjectMessage) this.spm;
             

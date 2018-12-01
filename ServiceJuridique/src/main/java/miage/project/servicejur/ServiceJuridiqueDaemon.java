@@ -29,11 +29,12 @@ import miage.project.siret.SirenPOJO;
  * @author yannl
  */
 public class ServiceJuridiqueDaemon implements MessageListener {
-    
+
     final static org.apache.log4j.Logger log4j = org.apache.log4j.Logger.getLogger(ServiceJuridiqueDaemon.class);
 
     @Override
     public void onMessage(Message message) {
+        log4j.debug("onMessage");
         if (message instanceof ObjectMessage) {
             try {
                 Object o = ((ObjectMessage) message).getObject();
@@ -53,12 +54,12 @@ public class ServiceJuridiqueDaemon implements MessageListener {
                     try {
                         pub.main();
                     } catch (NamingException ex) {
-                        Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
+                        log4j.error("error while calling main from publisher" + ex.getMessage());
                     }
 
                 }
             } catch (JMSException ex) {
-                Logger.getLogger(ServiceJuridiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
+                log4j.error("error while receiving message from topic" + ex.getMessage());
             }
 
         } else {
@@ -67,6 +68,7 @@ public class ServiceJuridiqueDaemon implements MessageListener {
     }
 
     public boolean verifDate(Date dateDeb, Date dateFin) {
+        log4j.debug("verifDate");
         Calendar startCalendar = new GregorianCalendar();
         startCalendar.setTime(dateDeb);
         Calendar endCalendar = new GregorianCalendar();
@@ -84,7 +86,8 @@ public class ServiceJuridiqueDaemon implements MessageListener {
     }
     
     public boolean verifExistenceJuridique (float gratification, String nomEntreprise, int siren, String nomEtudiant){
-
+        log4j.debug("verifExistenceJuridique");
+        
         // I/O JSON
         Gson gson = new Gson();
 
@@ -119,6 +122,7 @@ public class ServiceJuridiqueDaemon implements MessageListener {
     }
     
     public boolean verifContratAssurance (Date dateDeb, Date dateFin, int contratAssurance, String nomEtudiant) {
+        log4j.debug("verifContratAssurance");
         return true;
     }
 }

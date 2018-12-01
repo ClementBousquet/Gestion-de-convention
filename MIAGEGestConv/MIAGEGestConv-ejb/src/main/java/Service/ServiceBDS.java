@@ -102,7 +102,12 @@ public class ServiceBDS implements ServiceBDSLocal {
         map.put("id", conv.getId().toString());
         map.put("nomE", conv.getNomEnseignant());
         map.put("resume",conv.getResume()); 
-        //TODO
+        map.put("statutA", conv.getStatutAdministratif());
+        map.put("statutJ", conv.getStatutJuridique());      
+        map.put("statutP", conv.getStatutPedagogique());
+        map.put("formation", conv.getFormation().getDepartement());
+        map.put("Entreprise", conv.getEntreprise().getNom());
+       
        
         return map;
     }

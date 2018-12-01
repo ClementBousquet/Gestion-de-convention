@@ -8,7 +8,6 @@ package Business;
 import JMS.MessageSenderBean;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;

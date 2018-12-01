@@ -8,8 +8,6 @@ package miage.project.servicejur;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -23,6 +21,10 @@ import javax.naming.NamingException;
  * @author yannl
  */
 public class SubJuridique{
+    
+    final static org.apache.log4j.Logger log4j = org.apache.log4j.Logger.getLogger(SubJuridique.class);
+
+    
   public static void main(String[] args) throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
@@ -62,7 +64,7 @@ public class SubJuridique{
         try {  
             waiter.readLine();
         } catch (IOException ex) {
-            //Logger.getLogger(SubAdministratif.class.getName()).log(Level.SEVERE, null, ex);
+            log4j.error("error while reading new line on topic" + ex.getMessage());
         }
     } 
 }

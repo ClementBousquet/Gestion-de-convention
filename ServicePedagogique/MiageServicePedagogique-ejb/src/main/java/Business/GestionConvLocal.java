@@ -19,6 +19,7 @@ public interface GestionConvLocal {
     
     void createConvention(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule,  String niveau, String profref);
     void setProfRef(Long idConv, String prof);
+    void delete (Long idConv);
     Convention getConventionById(Long idConv);
     List<Convention> getConventions();
     Convention getConvention(Long id);

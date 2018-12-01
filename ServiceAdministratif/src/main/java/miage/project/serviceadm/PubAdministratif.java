@@ -9,7 +9,6 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
@@ -20,6 +19,7 @@ import javax.naming.NamingException;
  * @author yannl
  */
 public class PubAdministratif {
+    
   private ServiceAdministratifMessage sam;
     
     public PubAdministratif(ServiceAdministratifMessage sam){

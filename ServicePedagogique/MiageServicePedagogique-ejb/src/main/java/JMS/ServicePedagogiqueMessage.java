@@ -19,16 +19,16 @@ public class ServicePedagogiqueMessage implements Serializable {
     private String statut;
     private String resume;
     private String intule;
-    private String niveau;
     private String prof_ref;
 
-    public ServicePedagogiqueMessage(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule) {
+    public ServicePedagogiqueMessage(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule, String profRef) {
         this.idConvention = idConvention;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.statut = statut;
         this.resume = resume;
         this.intule = intule;
+        this.prof_ref = profRef;
     }
      public ServicePedagogiqueMessage(ServicePedagogiqueMessage spm,String statut){
          this.idConvention=spm.idConvention;
@@ -89,15 +89,6 @@ public class ServicePedagogiqueMessage implements Serializable {
     public void setIntule(String intule) {
         this.intule = intule;
     }
-
-    public String getNiveau() {
-        return niveau;
-    }
-
-    public void setNiveau(String niveau) {
-        this.niveau = niveau;
-    }
-    
     
     
 }

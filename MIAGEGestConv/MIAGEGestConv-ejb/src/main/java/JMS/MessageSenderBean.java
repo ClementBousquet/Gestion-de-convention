@@ -7,7 +7,6 @@ package JMS;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.EJB;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -16,16 +15,12 @@ import javax.jms.Message;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import JMS.ServicePedagogiqueMessage;
 import Entities.Convention;
-import Service.ServiceBDSLocal;
 import miage.project.serviceadm.ServiceAdministratifMessage;
 import miage.project.servicejur.ServiceJuridiqueMessage;
-import Repositories.EtudiantFacade;
 
 /**
  *
@@ -34,8 +29,11 @@ import Repositories.EtudiantFacade;
 public class MessageSenderBean {
 
     
+    final static org.apache.log4j.Logger log4j = org.apache.log4j.Logger.getLogger(MessageSenderBean.class);
+    
     private Message createJMSMessageForjmsMyTopic(Session session, Convention conv, String dest) throws JMSException {
-        // TODO create and populate message to send
+        log4j.debug("createJMSMessageForjmsMyTopic");
+        
         ObjectMessage tm = session.createObjectMessage(); 
         switch (dest) {
             case "ServiceJuridique" :
@@ -62,7 +60,13 @@ public class MessageSenderBean {
                 break;
             case "ServicePedagogique" :
                 tm.setJMSType("ServicePedagogique");
-                //tm.setObject(new ServicePedagogiqueMessage());
+                tm.setObject(new ServicePedagogiqueMessage(conv.getId(),
+                    conv.getDateDebut(),
+                    conv.getDateFin(),
+                    conv.getStatutPedagogique(),
+                    conv.getResume(),
+                    conv.getFormation().getIntitule(),
+                    ""));
                 break;
         }
         
@@ -70,6 +74,8 @@ public class MessageSenderBean {
     }
 
     public void sendJMSMessageToMyTopic(Object messageData) throws JMSException, NamingException {
+        log4j.debug("sendJMSMessageToMyTopic");
+        
         Context c = new InitialContext();
         ConnectionFactory cf = (ConnectionFactory) c.lookup("java:comp/env/jms/__defaultConnectionFactory");
         Connection conn = null;
@@ -89,7 +95,7 @@ public class MessageSenderBean {
                 try {
                     s.close();
                 } catch (JMSException e) {
-                    Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Cannot close session", e);
+                    log4j.error("Error while sending message to Topic" + e.getMessage());
                 }
             }
             if (conn != null) {
