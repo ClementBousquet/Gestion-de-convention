@@ -5,7 +5,6 @@
  */
 package Repositories;
 
-import Entities.Convention;
 import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,6 +12,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import Entities.Convention;
+import Entities.Etudiant;
 
 /**
  *
@@ -21,7 +22,7 @@ import javax.persistence.criteria.Root;
 @Stateless
 public class ConventionFacade extends AbstractFacade<Convention> implements ConventionFacadeLocal {
 
-    @PersistenceContext(unitName = "miage.project_MiageServicePedagogique-ejb_ejb_1.0-SNAPSHOTPU")
+    @PersistenceContext(unitName = "miage.project_MIAGEGestConv-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
 
     @Override
@@ -34,13 +35,15 @@ public class ConventionFacade extends AbstractFacade<Convention> implements Conv
     }
 
     @Override
-    public Convention getConventionById(Long id) {
+    public Convention findByEtuAndYear(Object etu, Date datedeb, Date datefin) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Convention> cq = cb.createQuery(Convention.class);
         Root<Convention> root = cq.from(Convention.class);
         cq.where(
                 cb.and(
-                        cb.equal(root.get("idConvRef").as(Long.class), id)
+                        cb.equal(root.get("etu").as(Etudiant.class), etu),
+                        cb.equal(root.get("dateDebut").as(Date.class), datedeb),
+                        cb.equal(root.get("dateFin").as(Date.class), datefin)
                 )
         );
         return getEntityManager().createQuery(cq).getSingleResult();

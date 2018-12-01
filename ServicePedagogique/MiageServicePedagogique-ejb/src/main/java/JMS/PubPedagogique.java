@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.serviceadm;
+package JMS;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -15,15 +15,16 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 /**
  *
  * @author yannl
  */
-public class PubAdministratif {
-  private ServiceAdministratifMessage sam;
+public class PubPedagogique{
+    private ServicePedagogiqueMessage spm;
     
-    public PubAdministratif(ServiceAdministratifMessage sam){
-        this.sam=sam;
+    public PubPedagogique(ServicePedagogiqueMessage spm){
+        this.spm=spm;
     }
     
     public void main() throws NamingException, JMSException{
@@ -57,10 +58,10 @@ public class PubAdministratif {
             int count=0;
        
                
-            ObjectMessage obj=(ObjectMessage) this.sam;
+            ObjectMessage obj=(ObjectMessage) this.spm;
             
             sender.send(obj);
-            System.out.println("Sent: "+sam.getIdConvention());
+            System.out.println("Sent: "+spm.getIdConvention());
               
     }
 }

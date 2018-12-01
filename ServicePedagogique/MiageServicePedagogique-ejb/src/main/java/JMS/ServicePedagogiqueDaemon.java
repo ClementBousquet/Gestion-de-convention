@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.serviceadm;
+package JMS;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,37 +20,32 @@ import javax.naming.NamingException;
  *
  * @author yannl
  */
-public class ServiceAdministratifDaemon implements MessageListener {
+public class ServicePedagogiqueDaemon implements MessageListener {
 
     @Resource
     private MessageDrivenContext mdc;
 
     @Override
     public void onMessage(Message message) {
-     if (message instanceof ObjectMessage) {
+        if (message instanceof MapMessage) {
             try {
                 Object o = ((ObjectMessage) message).getObject();
 
-                if (o instanceof ServiceAdministratifMessage) {
+                if (o instanceof ServicePedagogiqueMessage) {
                     //Traitement
-                   ServiceAdministratifMessage sam=(ServiceAdministratifMessage) o;
-                   
-                   
-                   String statut="";
-                   PubAdministratif pub=new PubAdministratif(new ServiceAdministratifMessage(sam,statut));
+                    ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) o;
+
+                    String statut = "";
+                    PubPedagogique pub = new PubPedagogique(new ServicePedagogiqueMessage(spm, statut));
                     try {
                         pub.main();
                     } catch (NamingException ex) {
-                        Logger.getLogger(ServiceAdministratifDaemon.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ServicePedagogiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             } catch (JMSException ex) {
-                Logger.getLogger(ServiceAdministratifDaemon.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ServicePedagogiqueDaemon.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } else {
-
         }
     }
-    }
-
+}

@@ -20,12 +20,12 @@ import javax.jms.TextMessage;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import miage.project.JMS.ServicePedagogiqueMessage;
-import entities.Convention;
-import service.ServiceBDSLocal;
+import JMS.ServicePedagogiqueMessage;
+import Entities.Convention;
+import Service.ServiceBDSLocal;
 import miage.project.serviceadm.ServiceAdministratifMessage;
 import miage.project.servicejur.ServiceJuridiqueMessage;
-import repositories.EtudiantFacade;
+import Repositories.EtudiantFacade;
 
 /**
  *
