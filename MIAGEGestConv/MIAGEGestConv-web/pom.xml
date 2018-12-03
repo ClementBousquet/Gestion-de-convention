@@ -21,9 +21,20 @@
     
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>miage.project</groupId>
             <artifactId>MIAGEGestConv-ejb</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>miage.project</groupId>
+                    <artifactId>ServiceAdministratif</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>miage.project</groupId>
+                    <artifactId>ServiceJuridique</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>javax</groupId>

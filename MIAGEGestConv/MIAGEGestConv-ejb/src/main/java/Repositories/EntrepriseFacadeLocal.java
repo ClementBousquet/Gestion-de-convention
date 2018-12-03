@@ -5,9 +5,9 @@
  */
 package Repositories;
 
+import Entities.Entreprise;
 import java.util.List;
 import javax.ejb.Local;
-import Entities.Entreprise;
 
 /**
  *

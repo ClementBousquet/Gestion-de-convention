@@ -5,10 +5,10 @@
  */
 package Repositories;
 
+import Entities.Etudiant;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import Entities.Etudiant;
 
 /**
  *

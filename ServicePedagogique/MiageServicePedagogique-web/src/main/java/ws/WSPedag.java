@@ -5,7 +5,8 @@
  */
 package ws;
 
-import Services.ServicePedagLocal;
+import ServicesP.ServicePedagLocal;
+import Util.HashMapWrapper;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ import javax.jws.WebParam;
 @Stateless()
 public class WSPedag {
 
-    @EJB
+    @EJB(beanName = "ServicePedag") 
     private ServicePedagLocal ejbRef;// Add business logic below. (Right-click in editor and choose
     // "Web Service > Add Operation"
 
@@ -58,7 +59,7 @@ public class WSPedag {
     }
 
     @WebMethod(operationName = "getConvention")
-    public Map<String, String> getConvention(@WebParam(name = "id") Long id) {
+    public HashMapWrapper getConvention(@WebParam(name = "id") Long id) {
         return ejbRef.getConvention(id);
     }
     

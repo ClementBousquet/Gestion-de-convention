@@ -5,6 +5,7 @@
  */
 package Service;
 
+import Util.HashMapWrapper;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,6 @@ public interface ServiceBDSLocal {
     
     Long getEtudiant(String pseudo, String pass);
     List<String> getConventions(Long idEtu);
-    Map<String, String> getConvention(Long idConv);
+    HashMapWrapper getConvention(Long idConv);
     
 }

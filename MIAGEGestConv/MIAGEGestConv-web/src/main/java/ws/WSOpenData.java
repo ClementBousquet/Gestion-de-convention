@@ -5,16 +5,16 @@
  */
 package ws;
 
+import Service.ServiceBDSLocal;
+import Util.HashMapWrapper;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.jws.WebService;
 import javax.ejb.Stateless;
 import javax.jws.Oneway;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import Service.ServiceBDSLocal;
 
 /**
  *
@@ -24,7 +24,7 @@ import Service.ServiceBDSLocal;
 @Stateless()
 public class WSOpenData {
 
-    @EJB
+    @EJB(beanName="ServiceBDS")
     private ServiceBDSLocal ejbRef;// Add business logic below. (Right-click in editor and choose
     // "Web Service > Add Operation"
 
@@ -87,7 +87,7 @@ public class WSOpenData {
     }
 
     @WebMethod(operationName = "getConvention")
-    public Map<String, String> getConvention(@WebParam(name = "idConv") Long idConv) {
+    public HashMapWrapper getConvention(@WebParam(name = "idConv") Long idConv) {
         return ejbRef.getConvention(idConv);
     }
     

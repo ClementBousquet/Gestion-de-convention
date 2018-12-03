@@ -5,10 +5,10 @@
  */
 package Business;
 
+import Entities.Convention;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
-import Entities.Convention;
 import Entities.Etudiant;
 import Entities.Formation;
 

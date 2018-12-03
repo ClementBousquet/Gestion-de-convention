@@ -5,16 +5,16 @@
  */
 package Service;
 
-import Business.GestionBDS;
+
 import Business.GestionBDSLocal;
+import Entities.Convention;
+import Util.HashMapWrapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import Entities.Convention;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,7 +26,7 @@ public class ServiceBDS implements ServiceBDSLocal {
 
     final static Logger log4j = Logger.getLogger(ServiceBDS.class);
     
-    @EJB
+    @EJB(beanName = "GestionBDS") 
     GestionBDSLocal gestionBDS;
 
     @Override
@@ -92,12 +92,12 @@ public class ServiceBDS implements ServiceBDSLocal {
     }
 
     @Override
-    public Map<String, String> getConvention(Long idConv) {
+    public HashMapWrapper getConvention(Long idConv) {
         log4j.debug("getConvention");
         
         Convention conv = gestionBDS.getConvention(idConv);
         
-        Map<String, String> map = new HashMap();
+        HashMap<String, String> map = new HashMap();
         
         map.put("id", conv.getId().toString());
         map.put("nomE", conv.getNomEnseignant());
@@ -109,7 +109,7 @@ public class ServiceBDS implements ServiceBDSLocal {
         map.put("Entreprise", conv.getEntreprise().getNom());
        
        
-        return map;
+        return new HashMapWrapper(map);
     }
 
     @Override

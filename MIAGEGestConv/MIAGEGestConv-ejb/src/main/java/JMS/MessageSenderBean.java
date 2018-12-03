@@ -5,8 +5,7 @@
  */
 package JMS;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import JMSP.ServicePedagogiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;

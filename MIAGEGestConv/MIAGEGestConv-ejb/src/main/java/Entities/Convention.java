@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -36,12 +37,6 @@ public class Convention implements Serializable {
     private String StatutPedagogique;
     @Column(nullable = false)
     private int annéeUniversitaire;
-    @OneToOne
-    @JoinColumn
-    private Formation formation;
-    @OneToOne
-    @JoinColumn
-    private Entreprise entreprise;
     @Column(nullable = false)
     private Date dateDebut;
     @Column(nullable = false)
@@ -56,9 +51,15 @@ public class Convention implements Serializable {
     private int dureeEssai; // Exprimé en semaine
     @Column(nullable = false)
     private int contratAssurance;
-    @OneToOne
+    
     @JoinColumn
     private Etudiant etudiant;
+    
+    @JoinColumn
+    private Formation formation;
+    
+    @JoinColumn
+    private Entreprise entreprise;
     
     protected Convention(){};
     

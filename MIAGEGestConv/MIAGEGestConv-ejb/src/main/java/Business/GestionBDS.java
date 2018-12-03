@@ -5,6 +5,7 @@
  */
 package Business;
 
+import Entities.Convention;
 import JMS.MessageSenderBean;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,6 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
-import Entities.Convention;
 import Entities.Entreprise;
 import Entities.Etudiant;
 import Entities.Formation;
@@ -31,16 +31,16 @@ public class GestionBDS implements GestionBDSLocal {
 
     final static Logger log4j = Logger.getLogger(GestionBDS.class);
     
-    @EJB
+    @EJB(beanName = "EtudiantFacade") 
     private EtudiantFacadeLocal etudiantFacade;
     
-    @EJB
+    @EJB(beanName = "EntrepriseFacade") 
     private EntrepriseFacadeLocal entrepriseFacade;
     
-    @EJB
+    @EJB(beanName = "FormationFacade") 
     private FormationFacadeLocal formationFacade;
     
-    @EJB
+    @EJB(beanName = "ConventionFacade") 
     private ConventionFacadeLocal conventionFacade;
     
     @Override
@@ -91,9 +91,9 @@ public class GestionBDS implements GestionBDSLocal {
         try {
             msb.sendJMSMessageToMyTopic(conv);
         } catch (JMSException ex) {
-            log4j.error("JMSException");
+            log4j.error("JMSException" + ex.getMessage());
         } catch (NamingException ex) {
-            log4j.error("NamingException");
+            log4j.error("NamingException" + ex.getMessage());
         }
         
         Etudiant et = etudiantFacade.find(idEtu);

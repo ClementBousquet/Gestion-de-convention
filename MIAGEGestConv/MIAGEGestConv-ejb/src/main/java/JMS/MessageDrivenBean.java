@@ -5,7 +5,8 @@
  */
 package JMS;
 
-import Service.ServiceBDS;
+
+import JMSP.ServicePedagogiqueMessage;
 import static java.lang.Long.parseLong;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -33,7 +34,7 @@ public class MessageDrivenBean implements MessageListener{
     
     final static Logger log4j = Logger.getLogger(MessageDrivenBean.class);
     
-    @EJB
+    @EJB(beanName = "ServiceBDS") 
     ServiceBDSLocal ServiceBDS;
     
     public MessageDrivenBean() {
