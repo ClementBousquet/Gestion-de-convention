@@ -64,8 +64,8 @@ public class MessageSenderBean {
                     conv.getDateFin(),
                     conv.getStatutPedagogique(),
                     conv.getResume(),
-                    conv.getFormation().getIntitule(),
-                    ""));
+                    conv.getFormation().getIntitule()
+                ));
                 break;
         }
         

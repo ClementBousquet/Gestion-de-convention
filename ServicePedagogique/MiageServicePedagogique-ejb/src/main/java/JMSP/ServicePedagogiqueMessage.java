@@ -21,18 +21,19 @@ public class ServicePedagogiqueMessage implements Serializable {
     private String intule;
     private String prof_ref;
 
-    public ServicePedagogiqueMessage(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule, String profRef) {
+    public ServicePedagogiqueMessage(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule) {
         this.idConvention = idConvention;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.statut = statut;
         this.resume = resume;
         this.intule = intule;
-        this.prof_ref = profRef;
+        
     }
-     public ServicePedagogiqueMessage(ServicePedagogiqueMessage spm,String statut){
+     public ServicePedagogiqueMessage(ServicePedagogiqueMessage spm, String profRef,String statut){
          this.idConvention=spm.idConvention;
          this.statut=statut;
+         this.prof_ref = profRef;
      }
     public String getProf_ref() {
         return prof_ref;

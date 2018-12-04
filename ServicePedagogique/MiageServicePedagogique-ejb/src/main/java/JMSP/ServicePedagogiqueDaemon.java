@@ -5,6 +5,13 @@
  */
 package JMSP;
 
+import Entities.Formation;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 import javax.annotation.Resource;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
@@ -21,15 +28,17 @@ import org.apache.log4j.Logger;
  */
 public class ServicePedagogiqueDaemon implements MessageListener {
 
+    private List<Formation> formation = new ArrayList<Formation>();
+    private List<String> listeProfesseur = new ArrayList<String>();
     final static Logger log4j = Logger.getLogger(ServicePedagogiqueDaemon.class);
-    
+
     @Resource
     private MessageDrivenContext mdc;
 
     @Override
     public void onMessage(Message message) {
         log4j.debug("onMessage");
-        
+
         if (message instanceof MapMessage) {
             try {
                 Object o = ((ObjectMessage) message).getObject();
@@ -37,9 +46,19 @@ public class ServicePedagogiqueDaemon implements MessageListener {
                 if (o instanceof ServicePedagogiqueMessage) {
                     //Traitement
                     ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) o;
-
                     String statut = "";
-                    PubPedagogique pub = new PubPedagogique(new ServicePedagogiqueMessage(spm, statut));
+                    String idProf = "";
+                    if (traitementServicePedagogique(spm)) {
+                        Random r = new Random();
+                        int low = 0;
+                        int high = 2;
+                        int result = r.nextInt(high - low) + low;
+                        idProf=listeProfesseur.get(result);
+                    } else {
+                        statut = "Erronée";
+                    }
+
+                    PubPedagogique pub = new PubPedagogique(new ServicePedagogiqueMessage(spm, idProf, statut));
                     try {
                         pub.main();
                     } catch (NamingException ex) {
@@ -50,5 +69,31 @@ public class ServicePedagogiqueDaemon implements MessageListener {
                 log4j.error("error while creating the JMS Message" + ex.getMessage());
             }
         }
+    }
+
+    public Boolean traitementServicePedagogique(ServicePedagogiqueMessage spm) {
+        formation.add(new Formation("Miage", "M1", "Maths-Informatique", "M1MIAGE"));
+        formation.add(new Formation("Miage", "M2", "Maths-Informatique", "M2MIAGE"));
+        formation.add(new Formation("Miage", "M2", "M2 ingénierie de la transformation numérique", "EIMIBE"));
+        listeProfesseur.add("Jean Moulin");
+        listeProfesseur.add("Jerome Duvié");
+        listeProfesseur.add("Boubou Lasalle");
+        String intitule = spm.getIntule();
+        String resume = spm.getResume();
+        Date dateDebut = spm.getDateDebut();
+        Date dateFin = spm.getDateFin();
+
+        Boolean isSameFormation = false;
+        for (Formation f : formation) {
+            isSameFormation = isSameFormation || ((intitule.equalsIgnoreCase(f.getIntitule())) && resume.contains("Informatique"));
+        }
+        DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        if (isSameFormation) {
+            if (dateDebut.after(date) == true && dateDebut.getMonth() > 5) {
+                return true;
+            }
+        }
+        return false;
     }
 }

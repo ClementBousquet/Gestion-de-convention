@@ -5,6 +5,7 @@
  */
 package miage.project.serviceadm;
 
+import java.util.Random;
 import javax.annotation.Resource;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
@@ -35,11 +36,15 @@ public class ServiceAdministratifDaemon implements MessageListener {
                 Object o = ((ObjectMessage) message).getObject();
 
                 if (o instanceof ServiceAdministratifMessage) {
+                    String statut="";
                     //Traitement
                    ServiceAdministratifMessage sam=(ServiceAdministratifMessage) o;
+                   if(traitementServiceAdministratif(sam)){
+                       statut="Correcte";
+                   }else{
+                       statut="Erroné";
+                   }
                    
-                   
-                   String statut="";
                    PubAdministratif pub=new PubAdministratif(new ServiceAdministratifMessage(sam,statut));
                     try {
                         pub.main();
@@ -54,6 +59,23 @@ public class ServiceAdministratifDaemon implements MessageListener {
         } else {
 
         }
+    }
+    
+    
+    public Boolean traitementServiceAdministratif(ServiceAdministratifMessage sam){
+        String intituleFormation=sam.getIntitule();
+        String niveau =sam.getNiveau();
+        
+        if(intituleFormation!=null && niveau!=null){
+            //Si formation égale à miage et niveau égale M2 , les informations seront considérés comme correcte sinon 1 chance sur 2
+            if(intituleFormation.equalsIgnoreCase("MIAGE") && niveau.equals("M2")){
+                return true;
+            }else{
+                Random random = new Random();
+                return random.nextBoolean();
+            }
+        }
+        return false;
     }
     }
 
