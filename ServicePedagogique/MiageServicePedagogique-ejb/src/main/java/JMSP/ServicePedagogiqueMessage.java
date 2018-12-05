@@ -28,11 +28,12 @@ public class ServicePedagogiqueMessage implements Serializable {
         this.statut = statut;
         this.resume = resume;
         this.intule = intule;
-        this.prof_ref = profRef;
+        
     }
-     public ServicePedagogiqueMessage(ServicePedagogiqueMessage spm,String statut){
+     public ServicePedagogiqueMessage(ServicePedagogiqueMessage spm, String profRef,String statut){
          this.idConvention=spm.idConvention;
          this.statut=statut;
+         this.prof_ref = profRef;
      }
     public String getProf_ref() {
         return prof_ref;

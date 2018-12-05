@@ -65,7 +65,8 @@ public class MessageSenderBean {
                     conv.getStatutPedagogique(),
                     conv.getResume(),
                     conv.getFormation().getIntitule(),
-                    ""));
+                    conv.getNomEnseignant()
+                ));
                 break;
         }
         
