@@ -34,7 +34,7 @@ public class ServicePedag implements ServicePedagLocal {
     GestionConvLocal gestionLocal;
     
     @Override
-    public void createConvention(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule, String niveau, String profref) {
+    public void createConvention(Long idConvention, String dateDebut, String dateFin, String statut, String resume, String intule, String niveau, String profref) {
         log4j.debug("createConvention");
         gestionLocal.createConvention(idConvention, dateDebut, dateFin, statut, resume, intule, niveau, profref);
     }

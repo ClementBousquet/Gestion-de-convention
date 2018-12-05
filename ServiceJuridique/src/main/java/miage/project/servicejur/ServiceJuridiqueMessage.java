@@ -16,8 +16,8 @@ public class ServiceJuridiqueMessage implements Serializable {
     
     
     private Long idConvention;
-    private Date dateDebut;
-    private Date dateFin;
+    private String dateDebut;
+    private String dateFin;
     private float gratification;
     private String nomEntreprise;
     private int siren;
@@ -50,7 +50,7 @@ public class ServiceJuridiqueMessage implements Serializable {
     }
     private int contratAssurance;
     
-    public ServiceJuridiqueMessage(Long idConvention,Date dateDebut, Date dateFin, float gratification, String nomEntreprise, int siren,int contratAssurance,String nomEtudiant, String prenomEtudiant) {
+    public ServiceJuridiqueMessage(Long idConvention,String dateDebut, String dateFin, float gratification, String nomEntreprise, int siren,int contratAssurance,String nomEtudiant, String prenomEtudiant) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.gratification = gratification;
@@ -86,19 +86,19 @@ public class ServiceJuridiqueMessage implements Serializable {
 
     
     
-    public Date getDateDebut() {
+    public String getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public String getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(String dateFin) {
         this.dateFin = dateFin;
     }
 

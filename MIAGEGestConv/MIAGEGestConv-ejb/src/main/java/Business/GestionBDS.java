@@ -6,22 +6,20 @@
 package Business;
 
 import Entities.Convention;
-import JMS.MessageSenderBean;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 import Entities.Entreprise;
 import Entities.Etudiant;
 import Entities.Formation;
+import JMS.MessageSenderBean;
 import org.apache.log4j.Logger;
 import Repositories.ConventionFacadeLocal;
 import Repositories.EntrepriseFacadeLocal;
 import Repositories.EtudiantFacadeLocal;
 import Repositories.FormationFacadeLocal;
-
+import javax.jms.JMSException;
+import javax.naming.NamingException;
 /**
  *
  * @author Quentin
@@ -62,9 +60,10 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
+    public void creerConvention(int annee, String datedeb, String datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
         log4j.debug("creerConvention");
         List<Entreprise> entreprises = entrepriseFacade.findAll();
+        
         Entreprise entpComp = new Entreprise(nomE, sirenE);
         
         int cpt = 0;
@@ -80,20 +79,23 @@ public class GestionBDS implements GestionBDSLocal {
             entrepriseFacade.create(entpComp);
         else 
            entpComp = entrepriseFacade.find(idEntp);
-        
-        Convention  myConv = new Convention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,formationFacade.find(etudiantFacade.find(idEtu).getForm()));
+            
+            
+        Convention  myConv = new Convention(annee, "", "", gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,etudiantFacade.find(idEtu).getForm());
         
         conventionFacade.create(myConv);
-        
-        Convention conv = conventionFacade.findByEtuAndYear(etudiantFacade.find(idEtu), datedeb, datefin);
 
-        MessageSenderBean msb = new MessageSenderBean();
+        Convention conv = conventionFacade.findByEtuEntreprise(etudiantFacade.find(idEtu), entpComp);
+        
+        log4j.info(conv.getId());
+        
         try {
+            MessageSenderBean msb = new MessageSenderBean();
             msb.sendJMSMessageToMyTopic(conv);
         } catch (JMSException ex) {
-            log4j.error("JMSException" + ex.getMessage());
+            log4j.error("error sending JMS " + ex.getMessage());
         } catch (NamingException ex) {
-            log4j.error("NamingException" + ex.getMessage());
+            log4j.error("error taking Topic " + ex.getMessage());
         }
         
         Etudiant et = etudiantFacade.find(idEtu);
@@ -102,7 +104,6 @@ public class GestionBDS implements GestionBDSLocal {
         et.setConvs(updatedList);
         
         etudiantFacade.edit(et);
-
     }
 
     @Override

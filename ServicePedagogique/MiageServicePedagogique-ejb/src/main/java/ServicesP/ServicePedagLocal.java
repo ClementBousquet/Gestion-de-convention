@@ -18,7 +18,7 @@ import javax.ejb.Local;
 @Local
 public interface ServicePedagLocal {
     
-    void createConvention(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule,  String niveau, String profref);
+    void createConvention(Long idConvention, String dateDebut, String dateFin, String statut, String resume, String intule,  String niveau, String profref);
     void setProfRef(Long idConv, String prof);
     void annulerConvention(Long idConv);
     void validerConvention(Long idConv);

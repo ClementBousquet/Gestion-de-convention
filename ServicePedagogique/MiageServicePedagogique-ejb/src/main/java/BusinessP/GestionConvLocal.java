@@ -17,7 +17,7 @@ import javax.ejb.Local;
 @Local
 public interface GestionConvLocal {
     
-    void createConvention(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule,  String niveau, String profref);
+    void createConvention(Long idConvention, String dateDebut, String dateFin, String statut, String resume, String intule,  String niveau, String profref);
     void setProfRef(Long idConv, String prof);
     void delete (Long idConv);
     ConventionR2 getConventionById(Long idConv);

@@ -113,7 +113,7 @@ public class ServiceBDS implements ServiceBDSLocal {
     }
 
     @Override
-    public void creerConvention(int annee, Date datedeb, Date datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
+    public void creerConvention(int annee, String datedeb, String datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu) {
         log4j.debug("creerConvention");
         gestionBDS.creerConvention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, nomE, sirenE, idEtu);
     }

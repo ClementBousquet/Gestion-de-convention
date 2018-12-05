@@ -76,13 +76,13 @@ public class MessageSenderBean {
         log4j.debug("sendJMSMessageToMyTopic");
         
         Context c = new InitialContext();
-        ConnectionFactory cf = (ConnectionFactory) c.lookup("java:comp/env/jms/__defaultConnectionFactory");
+        ConnectionFactory cf = (ConnectionFactory) c.lookup("jms/Bds");
         Connection conn = null;
         Session s = null;
         try {
             conn = cf.createConnection();
             s = conn.createSession(false, s.AUTO_ACKNOWLEDGE);
-            Destination destination = (Destination) c.lookup("java:comp/env/jms/myTopic");
+            Destination destination = (Destination) c.lookup("jms/myTopic");
             MessageProducer mp = s.createProducer(destination);
             if (messageData instanceof Convention) {
                 mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceJuridique"));

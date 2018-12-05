@@ -6,6 +6,8 @@
 package miage.project.servicejur;
 
 import com.google.gson.Gson;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -67,21 +69,29 @@ public class ServiceJuridiqueDaemon implements MessageListener {
         }
     }
 
-    public boolean verifDate(Date dateDeb, Date dateFin) {
-        log4j.debug("verifDate");
-        Calendar startCalendar = new GregorianCalendar();
-        startCalendar.setTime(dateDeb);
-        Calendar endCalendar = new GregorianCalendar();
-        endCalendar.setTime(dateFin);
-
-        int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
-        int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
-        
-        if (diffMonth < 6) {
+    public boolean verifDate(String dateDeb, String dateFin) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date dd = sdf.parse(dateDeb);
+            Date df = sdf.parse(dateFin);
+            log4j.debug("verifDate");
+            Calendar startCalendar = new GregorianCalendar();
+            startCalendar.setTime(dd);
+            Calendar endCalendar = new GregorianCalendar();
+            endCalendar.setTime(df);
+            
+            int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+            int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+            
+            if (diffMonth < 6) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        } catch (ParseException ex) {
+            log4j.error("Error while parsing date" + ex.getMessage());
             return false;
-        }
-        else {
-            return true;
         }
     }
     
@@ -121,7 +131,7 @@ public class ServiceJuridiqueDaemon implements MessageListener {
         return true;
     }
     
-    public boolean verifContratAssurance (Date dateDeb, Date dateFin, int contratAssurance, String nomEtudiant) {
+    public boolean verifContratAssurance (String dateDeb, String dateFin, int contratAssurance, String nomEtudiant) {
         log4j.debug("verifContratAssurance");
         return true;
     }
