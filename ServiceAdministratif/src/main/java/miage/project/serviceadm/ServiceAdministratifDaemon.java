@@ -41,9 +41,9 @@ public class ServiceAdministratifDaemon implements MessageListener {
                     //Traitement
                    ServiceAdministratifMessage sam= (ServiceAdministratifMessage) om.getObject();
                    if(traitementServiceAdministratif(sam)){
-                       statut="Correcte";
+                       statut="Valide";
                    }else{
-                       statut="Erroné";
+                       statut="Non Valide";
                    }
                    
                    PubAdministratif pub=new PubAdministratif(new ServiceAdministratifMessage(sam,statut));

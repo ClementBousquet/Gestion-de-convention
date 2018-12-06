@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package miage.project.serviceadm;
+package JMSP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
-import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -24,16 +23,16 @@ import org.apache.log4j.Logger;
  */
 public class SubPedagogique {
     
-    final static Logger log4j = Logger.getLogger(SubAdministratif.class);
+    final static Logger log4j = Logger.getLogger(SubPedagogique.class);
     
    public static void main(String[] args) throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
-        System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
+        System.setProperty("org.omg.CORBA.ORBInitialHost",	"127.0.0.1");
         System.setProperty("org.omg.CORBA.ORBInitialPort",	"3700");
         InitialContext	context	=	new	InitialContext();
          Connection connexion = null;
-        String factoryName = "ConnectionFactory";
+        String factoryName = "jms/Bds";
         Session session = null;
         // note ce code peut générer des NamingException et JMSException
    
@@ -48,12 +47,12 @@ public class SubPedagogique {
        
         // récupération de la Destination
         Destination dest=null;
-        dest = (Destination) context.lookup("SubjectTest");
+        dest = (Destination) context.lookup("jms/myTopic");
  
         MessageConsumer consumer = session.createConsumer(dest);
 
              // register a listener
-           consumer.setMessageListener(new ServiceAdministratifDaemon());
+           consumer.setMessageListener(new ServicePedagogiqueDaemon());
 
             // start the connection, to enable message receipt
             connexion.start();

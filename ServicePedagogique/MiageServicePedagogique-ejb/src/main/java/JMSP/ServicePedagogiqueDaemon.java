@@ -14,11 +14,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 import javax.annotation.Resource;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
@@ -42,13 +40,14 @@ public class ServicePedagogiqueDaemon implements MessageListener {
     public void onMessage(Message message) {
         log4j.debug("onMessage");
 
-        if (message instanceof MapMessage) {
+        if (message instanceof ObjectMessage) {
             try {
-                Object o = ((ObjectMessage) message).getObject();
+                
+                ObjectMessage o = (ObjectMessage) message;
 
-                if (o instanceof ServicePedagogiqueMessage) {
+                if (o.getJMSType().equals("ServicePedagogiqueMessage")) {
                     //Traitement
-                    ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) o;
+                    ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) o.getObject();
                     String statut = "";
                     String idProf = "";
                     if (traitementServicePedagogique(spm)) {
@@ -57,8 +56,9 @@ public class ServicePedagogiqueDaemon implements MessageListener {
                         int high = 2;
                         int result = r.nextInt(high - low) + low;
                         idProf=listeProfesseur.get(result);
+                        statut = "Valide";
                     } else {
-                        statut = "Erronée";
+                        statut = "Non Valide";
                     }
 
                     PubPedagogique pub = new PubPedagogique(new ServicePedagogiqueMessage(spm, idProf, statut));
@@ -102,7 +102,7 @@ public class ServicePedagogiqueDaemon implements MessageListener {
         }
         return false;
         } catch (ParseException ex) {
-            log4j.error("" + ex.getMessage());
+            log4j.error("error while parsing date " + ex.getMessage());
             return false;
         }
     }

@@ -51,9 +51,9 @@ public class ServiceJuridiqueDaemon implements MessageListener {
 
                     String statut = "";
                     if (verifDate(sjm.getDateDebut(),sjm.getDateFin()) && verifExistenceJuridique(sjm.getGratification(), sjm.getNomEntreprise(),sjm.getSiren(),sjm.getNomEtudiant()) && verifContratAssurance(sjm.getDateDebut(), sjm.getDateFin(),sjm.getContratAssurance(),sjm.getNomEtudiant())) {
-                        statut = "Validé";
+                        statut = "Valide";
                     } else {
-                        statut = "Non validé";
+                        statut = "Non valide";
                     }
                     PubJuridique pub = new PubJuridique(new ServiceJuridiqueMessage(sjm, statut));
                     try {
