@@ -5,6 +5,7 @@
  */
 package miage.project.serviceadm;
 
+import miage.project.miageserviceshared.ServiceAdministratifMessage;
 import java.util.Random;
 import javax.annotation.Resource;
 import javax.ejb.MessageDrivenContext;

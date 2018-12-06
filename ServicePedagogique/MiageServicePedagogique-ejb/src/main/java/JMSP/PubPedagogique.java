@@ -5,6 +5,7 @@
  */
 package JMSP;
 
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;

@@ -5,6 +5,7 @@
  */
 package miage.project.servicejur;
 
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 import com.google.gson.Gson;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

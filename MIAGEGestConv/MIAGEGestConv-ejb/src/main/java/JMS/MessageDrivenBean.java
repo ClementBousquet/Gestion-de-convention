@@ -6,7 +6,7 @@
 package JMS;
 
 
-import JMSP.ServicePedagogiqueMessage;
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import static java.lang.Long.parseLong;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -16,8 +16,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import Service.ServiceBDSLocal;
-import miage.project.serviceadm.ServiceAdministratifMessage;
-import miage.project.servicejur.ServiceJuridiqueMessage;
+import miage.project.miageserviceshared.ServiceAdministratifMessage;
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 import org.apache.log4j.Logger;
 
 /**

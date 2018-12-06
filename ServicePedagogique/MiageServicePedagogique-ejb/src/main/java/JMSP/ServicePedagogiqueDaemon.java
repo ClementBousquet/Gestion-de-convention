@@ -5,6 +5,7 @@
  */
 package JMSP;
 
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import Entities.Formation;
 import java.text.DateFormat;
 import java.text.ParseException;

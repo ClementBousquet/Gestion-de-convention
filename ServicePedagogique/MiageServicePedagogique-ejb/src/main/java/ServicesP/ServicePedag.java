@@ -8,7 +8,7 @@ package ServicesP;
 import BusinessP.GestionConvLocal;
 import EntitiesP.ConventionR2;
 import JMSP.PubPedagogique;
-import JMSP.ServicePedagogiqueMessage;
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import Util.HashMapWrapper;
 import java.util.ArrayList;
 import java.util.Date;

@@ -5,7 +5,7 @@
  */
 package JMS;
 
-import JMSP.ServicePedagogiqueMessage;
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -18,8 +18,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import Entities.Convention;
-import miage.project.serviceadm.ServiceAdministratifMessage;
-import miage.project.servicejur.ServiceJuridiqueMessage;
+import miage.project.miageserviceshared.ServiceAdministratifMessage;
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 
 /**
  *

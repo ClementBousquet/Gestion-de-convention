@@ -5,6 +5,7 @@
  */
 package miage.project.servicejur;
 
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;

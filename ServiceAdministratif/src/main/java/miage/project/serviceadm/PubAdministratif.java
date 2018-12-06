@@ -5,6 +5,7 @@
  */
 package miage.project.serviceadm;
 
+import miage.project.miageserviceshared.ServiceAdministratifMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
