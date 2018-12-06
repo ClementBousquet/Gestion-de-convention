@@ -36,7 +36,7 @@ public class MessageSenderBean {
         ObjectMessage tm = session.createObjectMessage(); 
         switch (dest) {
             case "ServiceJuridique" :
-                tm.setJMSType("ServiceJuridique");
+                tm.setJMSType("ServiceJuridiqueMessage");
                 tm.setObject(new ServiceJuridiqueMessage(conv.getId(),
                     conv.getDateDebut(),
                     conv.getDateFin(),
@@ -48,7 +48,7 @@ public class MessageSenderBean {
                     conv.getEtudiant().getPrenom()));
                 break;
             case "ServiceAdministratif" :
-                tm.setJMSType("ServiceAdministratif");
+                tm.setJMSType("ServiceAdministratifMessage");
                 tm.setObject(new ServiceAdministratifMessage(conv.getId(), 
                     conv.getEtudiant().getId(),
                     conv.getEtudiant().getNom(),
@@ -58,7 +58,7 @@ public class MessageSenderBean {
                     conv.getFormation().getNiveau()));
                 break;
             case "ServicePedagogique" :
-                tm.setJMSType("ServicePedagogique");
+                tm.setJMSType("ServicePedagogiqueMessage");
                 tm.setObject(new ServicePedagogiqueMessage(conv.getId(),
                     conv.getDateDebut(),
                     conv.getDateFin(),
@@ -86,9 +86,9 @@ public class MessageSenderBean {
             Destination destination = (Destination) c.lookup("jms/myTopic");
             MessageProducer mp = s.createProducer(destination);
             if (messageData instanceof Convention) {
-                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceJuridique"));
-                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServicePedagogique"));
                 mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceAdministratif"));
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceJuridique"));
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServicePedagogique"));        
             }
         } finally {
             if (s != null) {

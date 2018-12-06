@@ -31,14 +31,14 @@ public class ServiceAdministratifDaemon implements MessageListener {
     public void onMessage(Message message) {
     log4j.debug("onMessage");
     
-     if (message instanceof ObjectMessage) {
+    ObjectMessage om = (ObjectMessage) message;
+    
+     if (om instanceof ObjectMessage) {
             try {
-                Object o = ((ObjectMessage) message).getObject();
-
-                if (o instanceof ServiceAdministratifMessage) {
+                if (om.getJMSType().equals("ServiceAdministratifMessage")) {
                     String statut="";
                     //Traitement
-                   ServiceAdministratifMessage sam=(ServiceAdministratifMessage) o;
+                   ServiceAdministratifMessage sam= (ServiceAdministratifMessage) om.getObject();
                    if(traitementServiceAdministratif(sam)){
                        statut="Correcte";
                    }else{

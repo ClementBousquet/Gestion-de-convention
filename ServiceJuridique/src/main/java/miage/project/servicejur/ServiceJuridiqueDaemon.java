@@ -37,14 +37,16 @@ public class ServiceJuridiqueDaemon implements MessageListener {
     @Override
     public void onMessage(Message message) {
         log4j.debug("onMessage");
-        if (message instanceof ObjectMessage) {
+        
+        ObjectMessage o = (ObjectMessage) message;
+        
+        if (o instanceof ObjectMessage) {
             try {
-                Object o = ((ObjectMessage) message).getObject();
 
-                if (o instanceof ServiceJuridiqueMessage) {
+                if (o.getJMSType().equals("ServiceJuridiqueMessage")) {
                     //Traitement
 
-                    ServiceJuridiqueMessage sjm = (ServiceJuridiqueMessage) o;
+                    ServiceJuridiqueMessage sjm = (ServiceJuridiqueMessage) o.getObject();
 
                     String statut = "";
                     if (verifDate(sjm.getDateDebut(),sjm.getDateFin()) && verifExistenceJuridique(sjm.getGratification(), sjm.getNomEntreprise(),sjm.getSiren(),sjm.getNomEtudiant()) && verifContratAssurance(sjm.getDateDebut(), sjm.getDateFin(),sjm.getContratAssurance(),sjm.getNomEtudiant())) {
