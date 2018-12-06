@@ -5,6 +5,7 @@
  */
 package miage.project.servicejur;
 
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -29,11 +30,11 @@ public class PubJuridique {
     public void main() throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
-        System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
+        System.setProperty("org.omg.CORBA.ORBInitialHost",	"127.0.0.1");
         System.setProperty("org.omg.CORBA.ORBInitialPort",	"3700");
         InitialContext	context	=	new	InitialContext();
          Connection connexion = null;
-        String factoryName = "ConnectionFactory";
+        String factoryName = "jms/Bds";
         Session session = null;
         // note ce code peut générer des NamingException et JMSException
    
@@ -48,16 +49,17 @@ public class PubJuridique {
        
         // récupération de la Destination
         Destination dest=null;
-        dest = (Destination) context.lookup("SujetTest");
+        dest = (Destination) context.lookup("jms/myQueue");
  
         MessageProducer sender = session.createProducer(dest);
 
             // start the connection, to enable message sends
             connexion.start();
             int count=0;
-       
                
-            ObjectMessage obj=(ObjectMessage) this.sjm;
+            ObjectMessage obj = session.createObjectMessage();
+            obj.setJMSType("ServiceJuridiqueMessage");
+            obj.setObject(sjm);
             
             sender.send(obj);
             System.out.println("Sent: "+sjm.getIdConvention());

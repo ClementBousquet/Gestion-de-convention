@@ -27,8 +27,8 @@ public class ConventionR2 implements Serializable {
     private Long idConvRef;
     
     
-    private Date dateDebut;
-    private Date dateFin;
+    private String dateDebut;
+    private String dateFin;
     private String statut;
     private String resume;
     private String intule;
@@ -38,7 +38,7 @@ public class ConventionR2 implements Serializable {
     private ConventionR2() {  
     }
 
-    public ConventionR2(Long idConvRef, Date dateDebut, Date dateFin, String statut, String resume, String intule, String niveau, String prof_ref) {
+    public ConventionR2(Long idConvRef, String dateDebut, String dateFin, String statut, String resume, String intule, String niveau, String prof_ref) {
         this.idConvRef = idConvRef;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -49,19 +49,19 @@ public class ConventionR2 implements Serializable {
         this.prof_ref = prof_ref;
     }
 
-    public Date getDateDebut() {
+    public String getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public String getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(String dateFin) {
         this.dateFin = dateFin;
     }
 

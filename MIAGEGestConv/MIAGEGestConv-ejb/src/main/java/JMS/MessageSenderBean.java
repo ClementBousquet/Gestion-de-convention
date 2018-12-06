@@ -5,7 +5,7 @@
  */
 package JMS;
 
-import JMSP.ServicePedagogiqueMessage;
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -18,8 +18,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import Entities.Convention;
-import miage.project.serviceadm.ServiceAdministratifMessage;
-import miage.project.servicejur.ServiceJuridiqueMessage;
+import miage.project.miageserviceshared.ServiceAdministratifMessage;
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 
 /**
  *
@@ -36,7 +36,7 @@ public class MessageSenderBean {
         ObjectMessage tm = session.createObjectMessage(); 
         switch (dest) {
             case "ServiceJuridique" :
-                tm.setJMSType("ServiceJuridique");
+                tm.setJMSType("ServiceJuridiqueMessage");
                 tm.setObject(new ServiceJuridiqueMessage(conv.getId(),
                     conv.getDateDebut(),
                     conv.getDateFin(),
@@ -48,7 +48,7 @@ public class MessageSenderBean {
                     conv.getEtudiant().getPrenom()));
                 break;
             case "ServiceAdministratif" :
-                tm.setJMSType("ServiceAdministratif");
+                tm.setJMSType("ServiceAdministratifMessage");
                 tm.setObject(new ServiceAdministratifMessage(conv.getId(), 
                     conv.getEtudiant().getId(),
                     conv.getEtudiant().getNom(),
@@ -58,14 +58,15 @@ public class MessageSenderBean {
                     conv.getFormation().getNiveau()));
                 break;
             case "ServicePedagogique" :
-                tm.setJMSType("ServicePedagogique");
+                tm.setJMSType("ServicePedagogiqueMessage");
                 tm.setObject(new ServicePedagogiqueMessage(conv.getId(),
                     conv.getDateDebut(),
                     conv.getDateFin(),
                     conv.getStatutPedagogique(),
                     conv.getResume(),
                     conv.getFormation().getIntitule(),
-                    ""));
+                    conv.getNomEnseignant()
+                ));
                 break;
         }
         
@@ -76,18 +77,18 @@ public class MessageSenderBean {
         log4j.debug("sendJMSMessageToMyTopic");
         
         Context c = new InitialContext();
-        ConnectionFactory cf = (ConnectionFactory) c.lookup("java:comp/env/jms/__defaultConnectionFactory");
+        ConnectionFactory cf = (ConnectionFactory) c.lookup("jms/Bds");
         Connection conn = null;
         Session s = null;
         try {
             conn = cf.createConnection();
             s = conn.createSession(false, s.AUTO_ACKNOWLEDGE);
-            Destination destination = (Destination) c.lookup("java:comp/env/jms/myTopic");
+            Destination destination = (Destination) c.lookup("jms/myTopic");
             MessageProducer mp = s.createProducer(destination);
             if (messageData instanceof Convention) {
-                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceJuridique"));
-                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServicePedagogique"));
                 mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceAdministratif"));
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServiceJuridique"));
+                mp.send(createJMSMessageForjmsMyTopic(s, (Convention) messageData, "ServicePedagogique"));        
             }
         } finally {
             if (s != null) {

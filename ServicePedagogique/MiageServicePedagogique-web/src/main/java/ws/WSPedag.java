@@ -31,7 +31,7 @@ public class WSPedag {
 
     @WebMethod(operationName = "createConvention")
     @Oneway
-    public void createConvention(@WebParam(name = "idConvention") Long idConvention, @WebParam(name = "dateDebut") Date dateDebut, @WebParam(name = "dateFin") Date dateFin, @WebParam(name = "statut") String statut, @WebParam(name = "resume") String resume, @WebParam(name = "intule") String intule, @WebParam(name = "niveau") String niveau, @WebParam(name = "profref") String profref) {
+    public void createConvention(@WebParam(name = "idConvention") Long idConvention, @WebParam(name = "dateDebut") String dateDebut, @WebParam(name = "dateFin") String dateFin, @WebParam(name = "statut") String statut, @WebParam(name = "resume") String resume, @WebParam(name = "intule") String intule, @WebParam(name = "niveau") String niveau, @WebParam(name = "profref") String profref) {
         ejbRef.createConvention(idConvention, dateDebut, dateFin, statut, resume, intule, niveau, profref);
     }
 

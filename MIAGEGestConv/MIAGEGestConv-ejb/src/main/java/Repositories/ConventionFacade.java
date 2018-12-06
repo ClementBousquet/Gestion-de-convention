@@ -6,10 +6,11 @@
 package Repositories;
 
 import Entities.Convention;
+import Entities.Entreprise;
 import Entities.Etudiant;
-import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -33,20 +34,23 @@ public class ConventionFacade extends AbstractFacade<Convention> implements Conv
     public ConventionFacade() {
         super(Convention.class);
     }
-    
+
     @Override
-    public Convention findByEtuAndYear(Object etu, Date datedeb, Date datefin) {
+    public Convention findByEtuEntreprise(Object etu, Object entp) {
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Convention> cq = cb.createQuery(Convention.class);
         Root<Convention> root = cq.from(Convention.class);
         cq.where(
                 cb.and(
-                        cb.equal(root.get("etu").as(Etudiant.class), etu),
-                        cb.equal(root.get("dateDebut").as(Date.class), datedeb),
-                        cb.equal(root.get("dateFin").as(Date.class), datefin)
+                        cb.equal(root.get("etudiant").as(Etudiant.class), (Etudiant) etu),
+                        cb.equal(root.get("entreprise").as(Entreprise.class), (Entreprise) entp)
                 )
         );
-        return getEntityManager().createQuery(cq).getSingleResult();
+        try {
+            return getEntityManager().createQuery(cq).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

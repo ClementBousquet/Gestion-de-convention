@@ -28,11 +28,11 @@ public class SubJuridique{
   public static void main(String[] args) throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
-        System.setProperty("org.omg.CORBA.ORBInitialHost",	"192.168.1.10");
+        System.setProperty("org.omg.CORBA.ORBInitialHost",	"127.0.0.1");
         System.setProperty("org.omg.CORBA.ORBInitialPort",	"3700");
-        InitialContext	context	=	new	InitialContext();
+        InitialContext	context	= new InitialContext();
          Connection connexion = null;
-        String factoryName = "ConnectionFactory";
+        String factoryName = "jms/Bds";
         Session session = null;
         // note ce code peut générer des NamingException et JMSException
    
@@ -47,7 +47,7 @@ public class SubJuridique{
        
         // récupération de la Destination
         Destination dest=null;
-        dest = (Destination) context.lookup("SubjectTest");
+        dest = (Destination) context.lookup("jms/myTopic");
  
         MessageConsumer consumer = session.createConsumer(dest);
 

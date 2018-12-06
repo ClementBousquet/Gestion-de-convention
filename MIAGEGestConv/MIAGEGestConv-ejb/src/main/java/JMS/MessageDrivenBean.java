@@ -6,7 +6,7 @@
 package JMS;
 
 
-import JMSP.ServicePedagogiqueMessage;
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import static java.lang.Long.parseLong;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -16,8 +16,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import Service.ServiceBDSLocal;
-import miage.project.serviceadm.ServiceAdministratifMessage;
-import miage.project.servicejur.ServiceJuridiqueMessage;
+import miage.project.miageserviceshared.ServiceAdministratifMessage;
+import miage.project.miageserviceshared.ServiceJuridiqueMessage;
 import org.apache.log4j.Logger;
 
 /**
@@ -49,26 +49,27 @@ public class MessageDrivenBean implements MessageListener{
             ObjectMessage sm = (ObjectMessage) message;
             
             try {
-                
-               String id = sm.getStringProperty("id");
                
                
                switch(sm.getJMSType()) {
                    
                    case "ServiceAdministratifMessage" :
                         ServiceAdministratifMessage sam = (ServiceAdministratifMessage) sm.getObject();
-                        ServiceBDS.setStatutAdministratif(parseLong(id), sam.getStatut());
+                        log4j.info("IDA : " + sam.getIdConvention());
+                        ServiceBDS.setStatutAdministratif(sam.getIdConvention(), sam.getStatut());
                         break;
                         
                     case "ServicePedagogiqueMessage" :
                         ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) sm.getObject();
-                        ServiceBDS.setStatutPedagogique(parseLong(id), spm.getStatut());
-                        ServiceBDS.modifierConvention(parseLong(id), spm.getProf_ref());
+                        log4j.info("IDP : " + spm.getIdConvention());
+                        ServiceBDS.setStatutPedagogique(spm.getIdConvention(), spm.getStatut());
+                        ServiceBDS.modifierConvention(spm.getIdConvention(), spm.getProf_ref());
                         break;
                         
                     case "ServiceJuridiqueMessage" :
                         ServiceJuridiqueMessage sjm = (ServiceJuridiqueMessage) sm.getObject();
-                        ServiceBDS.setStatutJuridique(parseLong(id), sjm.getStatut());
+                        log4j.info("IDJ : " + sjm.getIdConvention());
+                        ServiceBDS.setStatutJuridique(sjm.getIdConvention(), sjm.getStatut());
                         break;
                         
                }

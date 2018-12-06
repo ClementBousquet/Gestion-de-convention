@@ -6,7 +6,6 @@
 package Repositories;
 
 import Entities.Convention;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -25,7 +24,7 @@ public interface ConventionFacadeLocal {
 
     Convention find(Object id);
 
-    Convention findByEtuAndYear(Object etu, Date datedeb, Date datefin);
+    Convention findByEtuEntreprise(Object etu, Object entp);
     
     List<Convention> findAll();
 

@@ -48,7 +48,7 @@ public class WSOpenData {
 
     @WebMethod(operationName = "creerConvention")
     @Oneway
-    public void creerConvention(@WebParam(name = "annee") int annee, @WebParam(name = "datedeb") Date datedeb, @WebParam(name = "datefin") Date datefin, @WebParam(name = "gratification") int gratification, @WebParam(name = "resume") String resume, @WebParam(name = "dureeEssai") int dureeEssai, @WebParam(name = "contrat") int contrat, @WebParam(name = "nomE") String nomE, @WebParam(name = "sirenE") int sirenE, @WebParam(name = "idEtu") Long idEtu) {
+    public void creerConvention(@WebParam(name = "annee") int annee, @WebParam(name = "datedeb") String datedeb, @WebParam(name = "datefin") String datefin, @WebParam(name = "gratification") int gratification, @WebParam(name = "resume") String resume, @WebParam(name = "dureeEssai") int dureeEssai, @WebParam(name = "contrat") int contrat, @WebParam(name = "nomE") String nomE, @WebParam(name = "sirenE") int sirenE, @WebParam(name = "idEtu") Long idEtu) {
         ejbRef.creerConvention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, nomE, sirenE, idEtu);
     }
 

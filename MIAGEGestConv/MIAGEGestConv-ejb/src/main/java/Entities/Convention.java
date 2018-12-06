@@ -6,15 +6,12 @@
 package Entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  *
@@ -38,14 +35,14 @@ public class Convention implements Serializable {
     @Column(nullable = false)
     private int annéeUniversitaire;
     @Column(nullable = false)
-    private Date dateDebut;
+    private String dateDebut;
     @Column(nullable = false)
-    private Date dateFin;
+    private String dateFin;
     @Column(nullable = false)
     private float gratification;
     @Column(nullable = false)
     private String resume;
-    @Column(nullable = false)
+    @Column
     private String nomEnseignant;
     @Column(nullable = false)
     private int dureeEssai; // Exprimé en semaine
@@ -63,15 +60,16 @@ public class Convention implements Serializable {
     
     protected Convention(){};
     
-    public Convention(int annee, Date datedebut, Date datefin, int gratification, String resume, int dureeEssai, int contrat, Entreprise entp, Etudiant etu, Formation form) {
+    public Convention(int annee, String datedeb, String datef, int gratification, String resume, int dureeEssai, int contrat, Entreprise entp, Etudiant etu, Formation form) {
         
         this.annéeUniversitaire = annee;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+        this.dateDebut = datedeb;
+        this.dateFin = datef;
         this.gratification = gratification;
         this.resume = resume;
         this.dureeEssai = dureeEssai;
         this.contratAssurance = contrat;
+        this.nomEnseignant = "";
         
         this.StatutPedagogique = "En Cours";
         this.StatutAdministratif = "En Cours";
@@ -91,19 +89,19 @@ public class Convention implements Serializable {
         this.etudiant = etudiant;
     }
 
-    public Date getDateDebut() {
+    public String getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(Date dateDebut) {
+    public void setDateDebut(String dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public Date getDateFin() {
+    public String getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(Date dateFin) {
+    public void setDateFin(String dateFin) {
         this.dateFin = dateFin;
     }
     

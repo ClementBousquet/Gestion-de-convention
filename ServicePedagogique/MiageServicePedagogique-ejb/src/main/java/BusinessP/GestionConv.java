@@ -26,7 +26,7 @@ public class GestionConv implements GestionConvLocal {
     ConventionR2FacadeLocal convLocal;
     
     @Override
-    public void createConvention(Long idConvention, Date dateDebut, Date dateFin, String statut, String resume, String intule, String niveau, String profref) {
+    public void createConvention(Long idConvention, String dateDebut, String dateFin, String statut, String resume, String intule, String niveau, String profref) {
         log4j.debug("createConvention");
         convLocal.create(new ConventionR2(idConvention, dateDebut, dateFin, statut, resume, intule, niveau, profref));
     }
