@@ -69,7 +69,7 @@ public class GestionBDS implements GestionBDSLocal {
         int cpt = 0;
         Long idEntp = 0L;
         for (int i = 0; i < entreprises.size(); i++) {
-            if (entreprises.get(i).equals(entpComp)) {
+            if (entreprises.get(i).getSiren() == sirenE) {
                 cpt = 1;
                 idEntp = entreprises.get(i).getId();
             }
@@ -104,6 +104,13 @@ public class GestionBDS implements GestionBDSLocal {
         et.setConvs(updatedList);
         
         etudiantFacade.edit(et);
+        
+        Entreprise etp = entrepriseFacade.find(idEtu);
+        updatedList = etp.getConvs();
+        updatedList.add(myConv);
+        etp.setConvs(updatedList);
+        
+        entrepriseFacade.edit(etp);
     }
 
     @Override
@@ -139,23 +146,29 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public Etudiant getEtudiant(String pseudo, String pass) {
+    public Long getEtudiant(String pseudo, String pass) {
         log4j.debug("getEtudiant");
         List<Etudiant> etudiants = etudiantFacade.findAll();
         
         for (int i = 0; i < etudiants.size(); i++) {
             if (etudiants.get(i).getPseudo().equals(pseudo) && etudiants.get(i).getPassword().equals(pass))
-                return etudiants.get(i);
+                return etudiants.get(i).getId();
         }
         
-        return null;
+        return 0L;
         
     }
 
     @Override
-    public List<Convention> getConventions(Long idEtu) {
+    public List<Convention> getConventionsEtu(Long idEtu) {
         log4j.debug("getConventions");
         return etudiantFacade.find(idEtu).getConvs();
+    }
+    
+    @Override
+    public List<Convention> getConventionsEtp(Long idEtp) {
+        log4j.debug("getConventions");
+        return entrepriseFacade.find(idEtp).getConvs();
     }
 
     @Override
@@ -174,6 +187,24 @@ public class GestionBDS implements GestionBDSLocal {
     public Convention getConvention(Long idConv) {
         log4j.debug("getConvention");
         return conventionFacade.find(idConv);
+    }
+
+    @Override
+    public void genererDataTest() {
+        log4j.debug("genereDataTest");
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Long getEntreprise(int siren) {
+        List<Entreprise> entreprises = entrepriseFacade.findAll();
+        
+        for (int i = 0; i < entreprises.size(); i++) {
+            if (entreprises.get(i).getSiren() == siren)
+                return entreprises.get(i).getId();
+        }
+        
+        return 0L;
     }
 
 }

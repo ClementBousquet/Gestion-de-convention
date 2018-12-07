@@ -23,6 +23,8 @@ public interface ServiceBDSLocal {
     void creerFormation(String intitule, String niv, String dep, String code);
     void creerConvention(int annee, String datedeb, String datefin, int gratification, String resume, int dureeEssai, int contrat, String nomE, int sirenE, Long idEtu);
 
+    void genererJeuDeTest();
+    
     void modifierConvention(Long id, String prof);
     
     void setStatutJuridique(Long id, String value);
@@ -30,7 +32,9 @@ public interface ServiceBDSLocal {
     void setStatutPedagogique(Long id, String value);
     
     Long getEtudiant(String pseudo, String pass);
-    List<String> getConventions(Long idEtu);
+    Long getEntreprise(int siren);
+    List<String> getConventionsEtu(Long idEtu);
+    List<String> getConventionsEtp(Long idEntp);
     HashMapWrapper getConvention(Long idConv);
     
 }
