@@ -7,6 +7,7 @@ package JMSP;
 
 import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import Entities.Formation;
+import ServicesP.ServicePedag;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,26 +47,24 @@ public class ServicePedagogiqueDaemon implements MessageListener {
                 ObjectMessage o = (ObjectMessage) message;
 
                 if (o.getJMSType().equals("ServicePedagogiqueMessage")) {
+                    ServicePedag sp=new ServicePedag();
                     //Traitement
                     ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) o.getObject();
                     String statut = "";
                     String idProf = "";
+                   // Long idConvention, String dateDebut, String dateFin, String statut, String resume, String intule, String niveau, String profref
+                    sp.createConvention(spm.getIdConvention(), spm.getDateDebut(), spm.getDateFin(), "En cours", spm.getResume(), spm.getIntule(), spm.getIntule(), "");
                     if (traitementServicePedagogique(spm)) {
                         Random r = new Random();
                         int low = 0;
                         int high = 2;
                         int result = r.nextInt(high - low) + low;
                         idProf=listeProfesseur.get(result);
-                        statut = "Valide";
+                        sp.setProfRef(spm.getIdConvention(), idProf);
+                        sp.validerConvention(spm.getIdConvention());
+                        
                     } else {
-                        statut = "Non Valide";
-                    }
-
-                    PubPedagogique pub = new PubPedagogique(new ServicePedagogiqueMessage(spm, idProf, statut));
-                    try {
-                        pub.main();
-                    } catch (NamingException ex) {
-                        log4j.error("error while publishing message to queue" + ex.getMessage());
+                      sp.annulerConvention(spm.getIdConvention());
                     }
                 }
             } catch (JMSException ex) {
