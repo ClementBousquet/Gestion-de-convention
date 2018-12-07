@@ -6,11 +6,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>MIAGEGestConv</name>
-  <modules>
-    <module>MIAGEGestConv-ear</module>
-    <module>MIAGEGestConv-web</module>
-    <module>MIAGEGestConv-ejb</module>
-  </modules>
+  <modules></modules>
   
     <dependencies>
         <dependency>

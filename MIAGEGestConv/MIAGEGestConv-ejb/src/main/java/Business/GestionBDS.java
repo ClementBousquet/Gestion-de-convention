@@ -81,7 +81,7 @@ public class GestionBDS implements GestionBDSLocal {
            entpComp = entrepriseFacade.find(idEntp);
             
             
-        Convention  myConv = new Convention(annee, "", "", gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,etudiantFacade.find(idEtu).getForm());
+        Convention  myConv = new Convention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,etudiantFacade.find(idEtu).getForm());
         
         conventionFacade.create(myConv);
 

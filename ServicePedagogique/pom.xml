@@ -6,11 +6,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>MiageServicePedagogique</name>
-  <modules>
-    <module>MiageServicePedagogique-ear</module>
-    <module>MiageServicePedagogique-web</module>
-    <module>MiageServicePedagogique-ejb</module>
-  </modules>
+  <modules></modules>
   <dependencies>
       <dependency>
             <groupId>log4j</groupId>
