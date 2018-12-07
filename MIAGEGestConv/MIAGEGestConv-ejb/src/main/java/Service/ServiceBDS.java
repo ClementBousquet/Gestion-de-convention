@@ -73,12 +73,12 @@ public class ServiceBDS implements ServiceBDSLocal {
     @Override
     public Long getEtudiant(String pseudo, String pass) {
         log4j.debug("getEtudiant");
-        return gestionBDS.getEtudiant(pseudo, pass).getId();
+        return gestionBDS.getEtudiant(pseudo, pass);
     }
     
     public Long getEntreprise(int siren) {
         log4j.debug("getEntreprise");
-        return gestionBDS.getEntreprise(siren).getId();
+        return gestionBDS.getEntreprise(siren);
     }
 
     @Override

@@ -146,16 +146,16 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public Etudiant getEtudiant(String pseudo, String pass) {
+    public Long getEtudiant(String pseudo, String pass) {
         log4j.debug("getEtudiant");
         List<Etudiant> etudiants = etudiantFacade.findAll();
         
         for (int i = 0; i < etudiants.size(); i++) {
             if (etudiants.get(i).getPseudo().equals(pseudo) && etudiants.get(i).getPassword().equals(pass))
-                return etudiants.get(i);
+                return etudiants.get(i).getId();
         }
         
-        return null;
+        return 0L;
         
     }
 
@@ -196,8 +196,15 @@ public class GestionBDS implements GestionBDSLocal {
     }
 
     @Override
-    public Entreprise getEntreprise(int siren) {
-        return entrepriseFacade.findBySiren(siren);
+    public Long getEntreprise(int siren) {
+        List<Entreprise> entreprises = entrepriseFacade.findAll();
+        
+        for (int i = 0; i < entreprises.size(); i++) {
+            if (entreprises.get(i).getSiren() == siren)
+                return entreprises.get(i).getId();
+        }
+        
+        return 0L;
     }
 
 }

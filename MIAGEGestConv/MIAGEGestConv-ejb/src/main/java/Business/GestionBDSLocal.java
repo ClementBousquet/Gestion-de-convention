@@ -32,8 +32,8 @@ public interface GestionBDSLocal {
     
     void genererDataTest();
     
-    Etudiant getEtudiant(String pseudo, String pass);
-    Entreprise getEntreprise(int siren);
+    Long getEtudiant(String pseudo, String pass);
+    Long getEntreprise(int siren);
     List<Convention> getConventionsEtp(Long idEntp);
     List<Convention> getConventionsEtu(Long idEtu);
     Convention getConvention(Long idConv);
