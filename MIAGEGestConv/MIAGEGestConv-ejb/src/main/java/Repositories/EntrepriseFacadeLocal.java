@@ -24,6 +24,8 @@ public interface EntrepriseFacadeLocal {
 
     Entreprise find(Object id);
 
+    Entreprise findBySiren(int Siren);
+    
     List<Entreprise> findAll();
 
     List<Entreprise> findRange(int[] range);

@@ -5,10 +5,16 @@
  */
 package Repositories;
 
+import Entities.Convention;
 import Entities.Entreprise;
+import Entities.Etudiant;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -27,6 +33,23 @@ public class EntrepriseFacade extends AbstractFacade<Entreprise> implements Entr
 
     public EntrepriseFacade() {
         super(Entreprise.class);
+    }
+
+    @Override
+    public Entreprise findBySiren(int siren) {
+        CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<Entreprise> cq = cb.createQuery(Entreprise.class);
+        Root<Entreprise> root = cq.from(Entreprise.class);
+        cq.where(
+                cb.and(
+                        cb.equal(root.get("siren").as(Integer.class), (Integer) siren)
+                )
+        );
+        try {
+            return getEntityManager().createQuery(cq).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
     
 }

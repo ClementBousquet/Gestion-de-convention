@@ -6,6 +6,7 @@
 package Business;
 
 import Entities.Convention;
+import Entities.Entreprise;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,8 +30,12 @@ public interface GestionBDSLocal {
     void setStatutAdministratif(Long id, String value);
     void setStatutPedagogique(Long id, String value);
     
+    void genererDataTest();
+    
     Etudiant getEtudiant(String pseudo, String pass);
-    List<Convention> getConventions(Long idEtu);
+    Entreprise getEntreprise(int siren);
+    List<Convention> getConventionsEtp(Long idEntp);
+    List<Convention> getConventionsEtu(Long idEtu);
     Convention getConvention(Long idConv);
     List<Formation> getFormation();
     List<Etudiant> getEtudiants();

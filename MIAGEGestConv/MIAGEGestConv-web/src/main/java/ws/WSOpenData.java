@@ -7,7 +7,6 @@ package ws;
 
 import Service.ServiceBDSLocal;
 import Util.HashMapWrapper;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.jws.WebService;
@@ -52,6 +51,12 @@ public class WSOpenData {
         ejbRef.creerConvention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, nomE, sirenE, idEtu);
     }
 
+    @WebMethod(operationName = "genererJeuDeTest")
+    @Oneway
+    public void genererJeuDeTest() {
+        ejbRef.genererJeuDeTest();
+    }
+
     @WebMethod(operationName = "modifierConvention")
     @Oneway
     public void modifierConvention(@WebParam(name = "id") Long id, @WebParam(name = "prof") String prof) {
@@ -81,9 +86,19 @@ public class WSOpenData {
         return ejbRef.getEtudiant(pseudo, pass);
     }
 
-    @WebMethod(operationName = "getConventions")
-    public List<String> getConventions(@WebParam(name = "idEtu") Long idEtu) {
-        return ejbRef.getConventions(idEtu);
+    @WebMethod(operationName = "getEntreprise")
+    public Long getEntreprise(@WebParam(name = "siren") int siren) {
+        return ejbRef.getEntreprise(siren);
+    }
+
+    @WebMethod(operationName = "getConventionsEtu")
+    public List<String> getConventionsEtu(@WebParam(name = "idEtu") Long idEtu) {
+        return ejbRef.getConventionsEtu(idEtu);
+    }
+
+    @WebMethod(operationName = "getConventionsEtp")
+    public List<String> getConventionsEtp(@WebParam(name = "idEntp") Long idEntp) {
+        return ejbRef.getConventionsEtp(idEntp);
     }
 
     @WebMethod(operationName = "getConvention")
