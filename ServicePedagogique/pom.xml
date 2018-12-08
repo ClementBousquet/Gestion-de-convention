@@ -7,9 +7,9 @@
   <packaging>pom</packaging>
   <name>MiageServicePedagogique</name>
   <modules>
+    <module>MiageServicePedagogique-ejb</module>
     <module>MiageServicePedagogique-ear</module>
     <module>MiageServicePedagogique-web</module>
-    <module>MiageServicePedagogique-ejb</module>
   </modules>
   <dependencies>
       <dependency>

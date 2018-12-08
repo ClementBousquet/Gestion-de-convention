@@ -71,7 +71,7 @@ public class ServicePedag implements ServicePedagLocal {
         
         try {
             ConventionR2 conv = gestionLocal.getConvention(idConv);
-            
+            //Rajouter la réponse du prof? qui valide avec if (a validé)?
             PubPedagogique p = new PubPedagogique(new ServicePedagogiqueMessage(conv.getId(), conv.getDateDebut(), conv.getDateFin(), "Valide", "", "", conv.getProf_ref()));
             p.main();
             

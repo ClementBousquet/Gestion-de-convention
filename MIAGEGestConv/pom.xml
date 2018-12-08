@@ -8,8 +8,8 @@
   <name>MIAGEGestConv</name>
   <modules>
     <module>MIAGEGestConv-ear</module>
-    <module>MIAGEGestConv-web</module>
     <module>MIAGEGestConv-ejb</module>
+    <module>MIAGEGestConv-web</module>
   </modules>
   
     <dependencies>
