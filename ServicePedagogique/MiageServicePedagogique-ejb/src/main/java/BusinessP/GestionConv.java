@@ -7,7 +7,6 @@ package BusinessP;
 
 import EntitiesP.ConventionR2;
 import RepositoriesP.ConventionR2FacadeLocal;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;

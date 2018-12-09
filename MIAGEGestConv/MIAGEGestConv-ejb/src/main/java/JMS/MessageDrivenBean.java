@@ -7,7 +7,6 @@ package JMS;
 
 
 import miage.project.miageserviceshared.ServicePedagogiqueMessage;
-import static java.lang.Long.parseLong;
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;

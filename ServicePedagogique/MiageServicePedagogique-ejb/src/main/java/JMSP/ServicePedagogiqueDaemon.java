@@ -7,7 +7,7 @@ package JMSP;
 
 import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import Entities.Formation;
-import ServicesP.ServicePedag;
+import ServicesP.ServicePedagLocal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
 import javax.jms.Message;
@@ -37,9 +38,12 @@ public class ServicePedagogiqueDaemon implements MessageListener {
     @Resource
     private MessageDrivenContext mdc;
 
+    @EJB(beanName="ServicePedag")
+    private ServicePedagLocal servicePedag;
+    
     @Override
     public void onMessage(Message message) {
-        log4j.debug("onMessage");
+        log4j.debug("ServicePedag" + " onMessage");
 
         if (message instanceof ObjectMessage) {
             try {
@@ -47,25 +51,9 @@ public class ServicePedagogiqueDaemon implements MessageListener {
                 ObjectMessage o = (ObjectMessage) message;
 
                 if (o.getJMSType().equals("ServicePedagogiqueMessage")) {
-                    ServicePedag sp=new ServicePedag();
                     //Traitement
                     ServicePedagogiqueMessage spm = (ServicePedagogiqueMessage) o.getObject();
-                    String statut = "";
-                    String idProf = "";
-                   // Long idConvention, String dateDebut, String dateFin, String statut, String resume, String intule, String niveau, String profref
-                    sp.createConvention(spm.getIdConvention(), spm.getDateDebut(), spm.getDateFin(), "En cours", spm.getResume(), spm.getIntule(), spm.getIntule(), "");
-                    if (traitementServicePedagogique(spm)) {
-                        Random r = new Random();
-                        int low = 0;
-                        int high = 2;
-                        int result = r.nextInt(high - low) + low;
-                        idProf=listeProfesseur.get(result);
-                        sp.setProfRef(spm.getIdConvention(), idProf);
-                        sp.validerConvention(spm.getIdConvention());
-                        
-                    } else {
-                      sp.annulerConvention(spm.getIdConvention());
-                    }
+                    servicePedag.createConvention(spm.getIdConvention(), spm.getDateDebut(), spm.getDateFin(), "En cours", spm.getResume(), spm.getIntule(), spm.getIntule(), "");
                 }
             } catch (JMSException ex) {
                 log4j.error("error while creating the JMS Message" + ex.getMessage());
@@ -74,8 +62,8 @@ public class ServicePedagogiqueDaemon implements MessageListener {
     }
 
     public Boolean traitementServicePedagogique(ServicePedagogiqueMessage spm) {
-        formation.add(new Formation("Miage", "M1", "Maths-Informatique", "M1MIAGE"));
-        formation.add(new Formation("Miage", "M2", "Maths-Informatique", "M2MIAGE"));
+        formation.add(new Formation("Miage", "M1", "Maths-Informatique", "M1 MIAGE"));
+        formation.add(new Formation("Miage", "M2", "Maths-Informatique", "M2 MIAGE"));
         formation.add(new Formation("Miage", "M2", "M2 ingénierie de la transformation numérique", "EIMIBE"));
         listeProfesseur.add("Jean Moulin");
         listeProfesseur.add("Jerome Duvié");
@@ -87,15 +75,17 @@ public class ServicePedagogiqueDaemon implements MessageListener {
 
         Boolean isSameFormation = false;
         for (Formation f : formation) {
-            isSameFormation = isSameFormation || ((intitule.equalsIgnoreCase(f.getIntitule())) && resume.contains("Informatique"));
+             if ((intitule.equalsIgnoreCase(f.getIntitule())) && resume.contains("Informatique"))
+                 isSameFormation = true;
         }
         DateFormat currentDate = new SimpleDateFormat("dd/MM/yyyy");
         
         try {
             Date dateDebut = currentDate.parse(dateD);
+            Date dateFin = currentDate.parse(dateF);
             Date date = new Date();
         if (isSameFormation) {
-            if (dateDebut.after(date) == true && dateDebut.getMonth() > 5) {
+            if (dateDebut.after(date) == true && dateFin.getMonth() > 5) {
                 return true;
             }
         }

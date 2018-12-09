@@ -75,11 +75,13 @@ public class GestionBDS implements GestionBDSLocal {
             }
         }
         
-        if (cpt == 0)
+        if (cpt == 0) {
             entrepriseFacade.create(entpComp);
-        else 
+            entpComp = entrepriseFacade.findBySiren(sirenE);
+        }
+        else {
            entpComp = entrepriseFacade.find(idEntp);
-            
+        }  
             
         Convention  myConv = new Convention(annee, datedeb, datefin, gratification, resume, dureeEssai, contrat, entpComp ,etudiantFacade.find(idEtu) ,etudiantFacade.find(idEtu).getForm());
         
@@ -105,12 +107,11 @@ public class GestionBDS implements GestionBDSLocal {
         
         etudiantFacade.edit(et);
         
-        Entreprise etp = entrepriseFacade.find(idEtu);
-        updatedList = etp.getConvs();
+        updatedList = entpComp.getConvs();
         updatedList.add(myConv);
-        etp.setConvs(updatedList);
+        entpComp.setConvs(updatedList);
         
-        entrepriseFacade.edit(etp);
+        entrepriseFacade.edit(entpComp);
     }
 
     @Override
