@@ -3,29 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JMSP;
+package JMS;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.MessageConsumer;
+import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.log4j.Logger;
+
 /**
  *
  * @author yannl
  */
-public class SubPedagogique {
+public class PubPedagogique{
+    private ServicePedagogiqueMessage spm;
     
-    final static Logger log4j = Logger.getLogger(SubPedagogique.class);
+    public PubPedagogique(ServicePedagogiqueMessage spm){
+        this.spm=spm;
+    }
     
-   public static void main(String[] args) throws NamingException, JMSException{
+    public void main() throws NamingException, JMSException{
         System.setProperty("java.naming.factory.initial",	
         "com.sun.enterprise.naming.SerialInitContextFactory");
         System.setProperty("org.omg.CORBA.ORBInitialHost",	"127.0.0.1");
@@ -47,24 +49,19 @@ public class SubPedagogique {
        
         // récupération de la Destination
         Destination dest=null;
-        dest = (Destination) context.lookup("jms/myTopic");
+        dest = (Destination) context.lookup("jms/myQueue");
  
-        MessageConsumer consumer = session.createConsumer(dest);
+        MessageProducer sender = session.createProducer(dest);
 
-             // register a listener
-           consumer.setMessageListener(new ServicePedagogiqueDaemon());
-
-            // start the connection, to enable message receipt
+            // start the connection, to enable message sends
             connexion.start();
-
-            System.out.println("Waiting for messages...");
-            System.out.println("Press [return] to quit");
-
-            BufferedReader waiter = new BufferedReader(new InputStreamReader(System.in));
-        try {  
-            waiter.readLine();
-        } catch (IOException ex) {
-            log4j.error("error while reading new line on topic" + ex.getMessage());
-        }
-    }  
+            
+            ObjectMessage obj = session.createObjectMessage();
+            obj.setObject(this.spm);
+            obj.setJMSType("ServicePedagogiqueMessage");
+            
+            sender.send(obj);
+            System.out.println("Sent: "+spm.getIdConvention());
+              
+    }
 }

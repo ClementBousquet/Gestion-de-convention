@@ -30,8 +30,8 @@ public class ServiceAdministratifMessage implements Serializable {
         this.niveau=niveau;
     }
     
-    public ServiceAdministratifMessage(ServiceAdministratifMessage sam,String statut){
-        this.idConvention=sam.getIdConvention();
+    public ServiceAdministratifMessage(Long id,String statut){
+        this.idConvention= id;
         this.statut=statut;
     }
     public Long getIdConvention() {

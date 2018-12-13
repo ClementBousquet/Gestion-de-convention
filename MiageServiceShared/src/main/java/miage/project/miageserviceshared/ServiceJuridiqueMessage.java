@@ -63,8 +63,8 @@ public class ServiceJuridiqueMessage implements Serializable {
         this.statut="En Cours";
     }
     
-    public ServiceJuridiqueMessage(ServiceJuridiqueMessage sjm,String statut){
-        this.idConvention=sjm.getIdConvention();
+    public ServiceJuridiqueMessage(Long id,String statut){
+        this.idConvention=id;
         this.statut=statut;
     }
 

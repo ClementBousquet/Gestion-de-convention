@@ -39,11 +39,11 @@ public class ServiceJuridiqueDaemon implements MessageListener {
     public void onMessage(Message message) {
         log4j.debug("onMessage");
         
-        ObjectMessage o = (ObjectMessage) message;
-        
-        if (o instanceof ObjectMessage) {
+        if (message instanceof ObjectMessage) {
             try {
 
+                ObjectMessage o = (ObjectMessage) message;
+                
                 if (o.getJMSType().equals("ServiceJuridiqueMessage")) {
                     //Traitement
 
@@ -55,7 +55,7 @@ public class ServiceJuridiqueDaemon implements MessageListener {
                     } else {
                         statut = "Non valide";
                     }
-                    PubJuridique pub = new PubJuridique(new ServiceJuridiqueMessage(sjm, statut));
+                    PubJuridique pub = new PubJuridique(new ServiceJuridiqueMessage(sjm.getIdConvention(), statut));
                     try {
                         pub.main();
                     } catch (NamingException ex) {

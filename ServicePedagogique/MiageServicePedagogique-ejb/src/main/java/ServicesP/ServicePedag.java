@@ -7,14 +7,12 @@ package ServicesP;
 
 import BusinessP.GestionConvLocal;
 import EntitiesP.ConventionR2;
-import JMSP.PubPedagogique;
+import JMS.PubPedagogique;
 import miage.project.miageserviceshared.ServicePedagogiqueMessage;
 import Util.HashMapWrapper;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jms.JMSException;
@@ -50,11 +48,12 @@ public class ServicePedag implements ServicePedagLocal {
         log4j.debug("annulerConvention");
         
         try {
+            System.out.println(idConv);
             ConventionR2 conv = gestionLocal.getConvention(idConv);
-            
-            PubPedagogique p = new PubPedagogique(new ServicePedagogiqueMessage(conv.getId(), conv.getDateDebut(), conv.getDateFin(), "Non Valide", "", "", conv.getProf_ref()));
+            System.out.println("ICI");
+            PubPedagogique p = new PubPedagogique(new ServicePedagogiqueMessage(conv.getIdConvRef(), "Non Valide", conv.getProf_ref()));
             p.main();
-            
+            System.out.println("LA");
             gestionLocal.delete(idConv);
             
         } catch (NamingException ex) {
@@ -72,7 +71,7 @@ public class ServicePedag implements ServicePedagLocal {
         try {
             ConventionR2 conv = gestionLocal.getConvention(idConv);
             //Rajouter la réponse du prof? qui valide avec if (a validé)?
-            PubPedagogique p = new PubPedagogique(new ServicePedagogiqueMessage(conv.getId(), conv.getDateDebut(), conv.getDateFin(), "Valide", "", "", conv.getProf_ref()));
+            PubPedagogique p = new PubPedagogique(new ServicePedagogiqueMessage(conv.getIdConvRef(), "Valide", conv.getProf_ref()));
             p.main();
             
             gestionLocal.delete(idConv);

@@ -30,8 +30,8 @@ public class ServicePedagogiqueMessage implements Serializable {
         this.intule = intule;
         
     }
-     public ServicePedagogiqueMessage(ServicePedagogiqueMessage spm, String profRef,String statut){
-         this.idConvention=spm.idConvention;
+     public ServicePedagogiqueMessage(Long id, String statut, String profRef){
+         this.idConvention=id;
          this.statut=statut;
          this.prof_ref = profRef;
      }

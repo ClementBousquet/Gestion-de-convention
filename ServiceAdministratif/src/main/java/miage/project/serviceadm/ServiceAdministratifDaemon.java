@@ -10,7 +10,6 @@ import java.util.Random;
 import javax.annotation.Resource;
 import javax.ejb.MessageDrivenContext;
 import javax.jms.JMSException;
-import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
@@ -32,10 +31,11 @@ public class ServiceAdministratifDaemon implements MessageListener {
     public void onMessage(Message message) {
     log4j.debug("onMessage");
     
-    ObjectMessage om = (ObjectMessage) message;
-    
-     if (om instanceof ObjectMessage) {
+     if (message instanceof ObjectMessage) {
             try {
+                
+                 ObjectMessage om = (ObjectMessage) message;
+                
                 if (om.getJMSType().equals("ServiceAdministratifMessage")) {
                     String statut="";
                     //Traitement
@@ -46,7 +46,7 @@ public class ServiceAdministratifDaemon implements MessageListener {
                        statut="Non Valide";
                    }
                    
-                   PubAdministratif pub=new PubAdministratif(new ServiceAdministratifMessage(sam,statut));
+                   PubAdministratif pub=new PubAdministratif(new ServiceAdministratifMessage(sam.getIdConvention(),statut));
                     try {
                         pub.main();
                     } catch (NamingException ex) {
@@ -69,7 +69,7 @@ public class ServiceAdministratifDaemon implements MessageListener {
         
         if(intituleFormation!=null && niveau!=null){
             //Si formation égale à miage et niveau égale M2 , les informations seront considérés comme correcte sinon 1 chance sur 2
-            if(intituleFormation.equalsIgnoreCase("MIAGE") && niveau.equals("M2")){
+            if(intituleFormation.equalsIgnoreCase("M2 MIAGE") && niveau.equals("Master")){
                 return true;
             }else{
                 Random random = new Random();

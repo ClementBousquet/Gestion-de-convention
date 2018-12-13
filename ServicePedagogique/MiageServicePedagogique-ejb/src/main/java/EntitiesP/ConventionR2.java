@@ -104,8 +104,14 @@ public class ConventionR2 implements Serializable {
     public void setProf_ref(String prof_ref) {
         this.prof_ref = prof_ref;
     }
-    
-    
+
+    public Long getIdConvRef() {
+        return idConvRef;
+    }
+
+    public void setIdConvRef(Long idConvRef) {
+        this.idConvRef = idConvRef;
+    }
     
     
     public Long getId() {
