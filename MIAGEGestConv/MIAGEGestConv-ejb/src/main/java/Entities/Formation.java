@@ -13,8 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
- * @author Quentin
+ * Represente une formation du système GestConv
+ * @author Quentin, Clément
  */
 @Entity
 public class Formation implements Serializable {
@@ -33,9 +33,23 @@ public class Formation implements Serializable {
     @Column(nullable = false)
     private String code;
     
+    /**
+     * Constructeur vide de Formation
+     */
     protected Formation() {
     }
     
+    /**
+     * Constructeur de formation
+     * @param inti
+     *  L'intitule de la formation
+     * @param niv
+     *  Le niveau de la formation (L1, L2, L3, M1 ou M2)
+     * @param dep
+     *  Le département de la formation
+     * @param code
+     *  Le code de la formation
+     */
     public Formation (String inti, String niv, String dep, String code) {
         this.intitule = inti;
         this.niveau = niv;
@@ -43,42 +57,87 @@ public class Formation implements Serializable {
         this.code = code;
     }
 
+    /**
+     * Retourne le code de la formation
+     * @return code
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Met à jour le code de la formation
+     * @param code
+     * Le code de la formation
+     */
     public void setCode(String code) {
         this.code = code;
     }
     
+    /**
+     * Retourne l'id de la formation
+     * @return id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Met à jour l'ID de la formation
+     * @param id
+     *  L'ID de la formation
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
+    /**
+     * Retourne l'intitule de la formation
+     * @return intitule
+     */
     public String getIntitule() {
         return intitule;
     }
 
+    /**
+     * Met à jour l'intitule de la formation
+     * @param intitule
+     *  L'intitule de la formation
+     */
     public void setIntitule(String intitule) {
         this.intitule = intitule;
     }
 
+    /**
+     * Retourne le niveau de la formation
+     * @return niveau
+     */
     public String getNiveau() {
         return niveau;
     }
 
+    /**
+     *Met à jour le niveau de la formation
+     * @param niveau
+     *  Le niveau de la formation
+     */
     public void setNiveau(String niveau) {
         this.niveau = niveau;
     }
 
+    /**
+     * Retourne le departement de la formation
+     * @return departement
+     */
     public String getDepartement() {
         return departement;
     }
 
+    /**
+     * Met à jour le département de la formation
+     * @param departement
+     *  Le departement de la formation
+     */
     public void setDepartement(String departement) {
         this.departement = departement;
     }
